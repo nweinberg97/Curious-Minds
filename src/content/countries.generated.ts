@@ -118,7 +118,7 @@ export const COUNTRIES: Country[] = [
   ],
   "areaKm2": 468,
   "tier": 3,
-  "flagFact": "The coat of arms combines symbols of Andorra's history: the mitre and crozier of the Bishop of Urgell, the stripes of Foix and Catalonia, and the cows of Béarn, above the motto 'Virtus Unita Fortior' ('Strength united is stronger')."
+  "flagFact": "The coat of arms combines symbols of Andorra's history: the mitre and crozier of the Bishop of Urgell, the stripes of Foix and Catalonia, and the cows of Béarn, above the motto 'Virtus Unita Fortior' ('United virtue is stronger')."
  },
  {
   "code": "ao",
@@ -487,7 +487,7 @@ export const COUNTRIES: Country[] = [
   ],
   "areaKm2": 22966,
   "tier": 3,
-  "flagFact": "Its coat of arms shows two woodcutters beside a mahogany tree, reflecting the timber trade; it is one of very few national flags depicting human figures."
+  "flagFact": "Its coat of arms shows two men holding logging tools beside a mahogany tree, reflecting the timber trade; it is one of very few national flags depicting human figures."
  },
  {
   "code": "bj",
@@ -1398,7 +1398,7 @@ export const COUNTRIES: Country[] = [
   "borders": [],
   "areaKm2": 751,
   "tier": 3,
-  "flagFact": "A Sisserou parrot, the national bird, sits at its centre, making it one of only two national flags with purple; the ten green stars represent Dominica's ten parishes."
+  "flagFact": "A Sisserou parrot, the national bird, sits at its centre, making it one of very few national flags to feature purple; the ten green stars represent Dominica's ten parishes."
  },
  {
   "code": "do",
@@ -2253,7 +2253,7 @@ export const COUNTRIES: Country[] = [
   ],
   "areaKm2": 1904569,
   "tier": 1,
-  "flagFact": "Called 'Sang Saka Merah-Putih', it is identical to Monaco's flag apart from its proportions (2:3 rather than 4:5)."
+  "flagFact": "Known as 'Sang Merah Putih' ('the Red and White'), it is identical to Monaco's flag apart from its proportions (2:3 rather than 4:5)."
  },
  {
   "code": "ir",
@@ -2314,7 +2314,7 @@ export const COUNTRIES: Country[] = [
   ],
   "areaKm2": 438317,
   "tier": 1,
-  "flagFact": "Since 2008 the words 'Allahu Akbar' have been written in Kufic script; previously they were shown in a handwriting style said to be Saddam Hussein's."
+  "flagFact": "Since 2004 the words 'Allahu Akbar' have been written in Kufic script; previously they were shown in a handwriting style said to be Saddam Hussein's."
  },
  {
   "code": "ie",
@@ -2366,6 +2366,7 @@ export const COUNTRIES: Country[] = [
      "Tel Aviv-Jaffa",
      "Tel Aviv Yafo"
     ],
+    "role": "temporary seat of government 1948–1949",
     "credit": "partial"
    }
   ],
@@ -2885,7 +2886,7 @@ export const COUNTRIES: Country[] = [
   ],
   "areaKm2": 65300,
   "tier": 2,
-  "flagFact": "First adopted in 1918 and restored in 1989, its yellow is said to stand for the sun, green for the forests and red for courage and the blood shed for the country."
+  "flagFact": "First adopted in 1918 and restored in 1988, its yellow is said to stand for the sun, green for the forests and red for courage and the blood shed for the country."
  },
  {
   "code": "lu",
@@ -3590,7 +3591,7 @@ export const COUNTRIES: Country[] = [
   ],
   "areaKm2": 130373,
   "tier": 2,
-  "flagFact": "Its coat of arms contains a rainbow, making it one of only two national flags with purple."
+  "flagFact": "Its coat of arms contains a rainbow, making it one of very few national flags to include purple."
  },
  {
   "code": "ne",

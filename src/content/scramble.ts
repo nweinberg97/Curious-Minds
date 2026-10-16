@@ -1030,7 +1030,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 2,
     definition: "A soft-bodied sea animal with eight arms covered in suckers.",
     example: "The octopus squeezed through a tiny gap in the rocks.",
-    note: "Greek for 'eight-footed'. The plural 'octopuses' is standard; 'octopi' is a mistaken Latin-style form.",
+    note: "Greek for 'eight-footed'. 'Octopuses' is the most common plural; 'octopi' is also accepted, though it treats the word as Latin.",
   },
   {
     word: "dolphin",
@@ -1275,7 +1275,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 2,
     definition: "A strong, regular, repeated pattern of sound or movement.",
     example: "Clap along to the rhythm of the drum.",
-    note: "One of the longest common English words with no vowel letter other than y.",
+    note: "It contains no vowel letters at all except y.",
   },
   {
     word: "zephyr",
@@ -1453,7 +1453,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 3,
     definition: "Keeping yourself and your surroundings clean to stay healthy.",
     example: "Good hygiene includes washing your hands.",
-    note: "Named after Hygieia, the Greek goddess of health.",
+    note: "From Greek 'hygieinē', the art of health, from 'hygiēs', healthy; the goddess Hygieia's name shares that root.",
   },
   {
     word: "astronaut",
@@ -1608,7 +1608,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 3,
     definition: "A large, luxurious car driven by a chauffeur.",
     example: "A limousine took them to the wedding.",
-    note: "Named after Limousin in France, whose shepherds wore hooded cloaks that resembled the car's covered seats.",
+    note: "Named after Limousin in France, apparently after a hooded cloak worn there that the car's covered compartment resembled.",
   },
   {
     word: "badminton",
@@ -1636,7 +1636,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 3,
     definition: "A folding canopy on a stick that shields you from rain or sun.",
     example: "She opened her umbrella as it began to pour.",
-    note: "From Italian 'ombrella', from Latin 'umbra', shade.",
+    note: "From Italian 'ombrello', from Latin 'umbella', a little sunshade, influenced by 'umbra', shade.",
   },
   {
     word: "graffiti",
@@ -1713,7 +1713,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 3,
     definition: "A small mammal covered in spines that rolls into a ball.",
     example: "A hedgehog snuffled through the garden at dusk.",
-    note: "Named for foraging in hedges and its pig-like grunting.",
+    note: "Named for foraging in hedges and for its pig-like snout.",
   },
   {
     word: "platypus",
@@ -1790,7 +1790,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 3,
     definition: "A rocky object orbiting the Sun, smaller than a planet.",
     example: "The asteroid passed safely by Earth.",
-    note: "Greek for 'star-like'; the name was suggested by astronomer William Herschel in 1802.",
+    note: "Greek for 'star-like'. William Herschel adopted it in 1802, though it seems to have been coined by Charles Burney Jr.",
   },
   {
     word: "villain",
@@ -2114,7 +2114,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
   {
     word: "saxophone",
     difficulty: 4,
-    definition: "A curved brass instrument played with a reed.",
+    definition: "A woodwind instrument with a curved brass body, played with a single reed.",
     example: "He played a jazz solo on the saxophone.",
     note: "Named after Belgian inventor Adolphe Sax, who patented it in 1846.",
   },
@@ -2326,7 +2326,7 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 4,
     definition: "Changing mood or behaviour suddenly and unpredictably.",
     example: "Mountain weather is capricious.",
-    note: "From Italian 'capriccio', a whim, which originally meant a sudden shudder of fright.",
+    note: "From Italian 'capriccio', a whim, which originally meant a shiver; its deeper origin is uncertain.",
   },
   {
     word: "benevolent",
@@ -2410,6 +2410,6 @@ export const SCRAMBLE_WORDS: ScrambleWord[] = [
     difficulty: 4,
     definition: "Changing quickly and unpredictably in mood.",
     example: "The mercurial chef could be charming or furious.",
-    note: "From Mercury, the swift messenger god of Roman myth.",
+    note: "From the planet Mercury: astrologers said people born under it were quick and changeable, like the messenger god.",
   },
 ];

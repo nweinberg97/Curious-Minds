@@ -67,18 +67,17 @@ function DefineArt() {
 }
 
 function FlagArt() {
+  // Real flags from the flag-icons set the game uses (MIT licence).
   return (
     <svg viewBox="0 0 220 140" width="100%" height="100%" aria-hidden="true">
-      <g transform="rotate(-8 70 70)">
-        <rect x="26" y="40" width="72" height="54" rx="4" fill="#0055a4" />
-        <rect x="50" y="40" width="24" height="54" fill="#fff" />
-        <rect x="74" y="40" width="24" height="54" fill="#ef4135" />
+      <g transform="rotate(-9 64 70)">
+        <rect x="22" y="38" width="80" height="60" rx="5" fill="var(--line-strong)" />
+        <image href="flags/br.svg" x="22" y="36" width="80" height="60" preserveAspectRatio="none" />
       </g>
-      <g transform="rotate(6 150 70)">
-        <rect x="112" y="34" width="80" height="60" rx="4" fill="#fff" />
-        <circle cx="152" cy="64" r="16" fill="#bc002d" />
+      <g transform="rotate(5 150 66)">
+        <image href="flags/jp.svg" x="108" y="30" width="84" height="63" preserveAspectRatio="none" />
       </g>
-      <rect x="84" y="104" width="52" height="10" rx="5" fill="var(--accent)" />
+      <rect x="84" y="108" width="52" height="10" rx="5" fill="var(--accent)" />
     </svg>
   );
 }

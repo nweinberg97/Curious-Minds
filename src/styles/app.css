@@ -706,6 +706,9 @@ textarea.answer { min-height: 96px; padding: var(--s3) var(--s4); font-size: var
 .option:disabled { cursor: default; }
 .option:disabled:not(.is-right):not(.is-wrong) { opacity: 0.5; }
 .country-hero { display: grid; gap: var(--s2); }
+.country-line { display: flex; align-items: center; gap: var(--s4); min-width: 0; }
+.country-line .big-word { min-width: 0; }
+.flag-chip { width: clamp(44px, 10vw, 64px); aspect-ratio: 4 / 3; height: auto; border-radius: 4px; box-shadow: 0 0 0 1px var(--line); flex: none; }
 .country-hero .meta { color: var(--bone-faint); }
 .factbox { padding: var(--s4) var(--s5); border-radius: var(--r-md); background: var(--slate); display: grid; gap: var(--s2); }
 .factbox .t { font-weight: 800; font-size: var(--t-lg); }

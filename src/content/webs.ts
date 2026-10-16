@@ -54,7 +54,7 @@ export const WEB_BOARDS: WebBoard[] = [
     groups: [
       g(1, 'Garden flowers', ['Tulip', 'Daisy', 'Poppy', 'Iris'], 'Four familiar flowers of the garden border.'),
       g(2, 'Garden tools', ['Rake', 'Hoe', 'Trowel', 'Shears'], 'Tools for raking, weeding, planting and clipping.'),
-      g(3, '___FLY', ['Butter', 'Dragon', 'Horse', 'Green'], 'Butterfly, dragonfly, horsefly and greenfly.'),
+      g(3, '___FLY', ['Butter', 'Dragon', 'Horse', 'House'], 'Butterfly, dragonfly, horsefly and housefly.'),
       g(4, 'Hidden trees', ['Helmet', 'Cloak', 'First', 'Spine'], 'hELMet hides ELM, clOAK hides OAK, FIRst hides FIR and sPINE hides PINE.'),
     ],
     herring: 'IRIS is also part of the eye and SPINE part of the body, but there are no body parts here.',
@@ -65,7 +65,7 @@ export const WEB_BOARDS: WebBoard[] = [
     groups: [
       g(1, 'Types of cloud', ['Cirrus', 'Cumulus', 'Stratus', 'Nimbus'], 'The basic cloud families: wispy, heaped, layered and rain-bearing.'),
       g(2, 'Named winds', ['Mistral', 'Sirocco', 'Chinook', 'Harmattan'], 'Regional winds of southern France, North Africa and the Mediterranean, the Rockies, and West Africa.'),
-      g(3, '___STORM', ['Brain', 'Barn', 'Sand', 'Fire'], 'Brainstorm, barnstorm, sandstorm and firestorm.'),
+      g(3, '___STORM', ['Brain', 'Snow', 'Sand', 'Fire'], 'Brainstorm, snowstorm, sandstorm and firestorm.'),
       g(4, 'Sound like weather', ['Reign', 'Hale', 'Missed', 'Son'], 'REIGN sounds like rain, HALE like hail, MISSED like mist and SON like sun.'),
     ],
     herring: 'BRAIN hides RAIN and SAND evokes a desert storm, but both are ___STORM words.',
@@ -153,7 +153,7 @@ export const WEB_BOARDS: WebBoard[] = [
     groups: [
       g(1, 'Shades of blue', ['Navy', 'Azure', 'Cobalt', 'Cyan'], 'Dark, sky, deep and greenish blues.'),
       g(2, 'Art movements', ['Cubism', 'Fauvism', 'Dada', 'Surrealism'], 'Early twentieth-century movements in modern art.'),
-      g(3, '___BRUSH', ['Tooth', 'Hair', 'Nail', 'Under'], 'Toothbrush, hairbrush, nailbrush and underbrush.'),
+      g(3, '___BRUSH', ['Tooth', 'Hair', 'Nail', 'Paint'], 'Toothbrush, hairbrush, nailbrush and paintbrush.'),
       g(4, 'Hidden colours', ['Stand', 'Credit', 'Prose', 'Plumber'], 'sTANd hides TAN, cREDit hides RED, pROSE hides ROSE and PLUMber hides PLUM.'),
     ],
     herring: 'COBALT is also a metal and NAVY a fleet, but both are blues here.',
@@ -186,7 +186,7 @@ export const WEB_BOARDS: WebBoard[] = [
     groups: [
       g(1, 'Coffee drinks', ['Espresso', 'Latte', 'Mocha', 'Macchiato'], 'Four orders at an espresso bar.'),
       g(2, 'Bakery treats', ['Scone', 'Muffin', 'Brownie', 'Eclair'], 'Baked goods to go with a coffee.'),
-      g(3, '___BEAN', ['Jelly', 'Broad', 'Runner', 'Soy'], 'Jelly bean, broad bean, runner bean and soybean.'),
+      g(3, '___BEAN', ['Jelly', 'Broad', 'Kidney', 'Soy'], 'Jelly bean, broad (fava) bean, kidney bean and soybean.'),
       g(4, 'Hidden TEA', ['Steak', 'Teach', 'Stealth', 'Instead'], 'sTEAk, TEAch, sTEAlth and insTEAd all hide TEA.'),
     ],
     herring: 'JELLY sounds like a treat for the bakery group, but it belongs with JELLY BEAN.',
@@ -250,12 +250,12 @@ export const WEB_BOARDS: WebBoard[] = [
     id: 'web-022',
     title: 'Greenhouse',
     groups: [
-      g(1, 'Root vegetables', ['Turnip', 'Parsnip', 'Radish', 'Swede'], 'Vegetables grown for their swollen roots.'),
-      g(2, 'Leafy greens', ['Kale', 'Spinach', 'Chard', 'Rocket'], 'Vegetables grown for their leaves.'),
-      g(3, '___PATCH', ['Bald', 'Nicotine', 'Purple', 'Elbow'], 'Bald patch, nicotine patch, purple patch and elbow patch.'),
+      g(1, 'Root vegetables', ['Turnip', 'Parsnip', 'Radish', 'Carrot'], 'Vegetables grown for their swollen roots.'),
+      g(2, 'Leafy greens', ['Kale', 'Spinach', 'Chard', 'Lettuce'], 'Vegetables grown for their leaves.'),
+      g(3, '___PATCH', ['Bald', 'Nicotine', 'Eye', 'Elbow'], 'Bald patch, nicotine patch, eye patch and elbow patch.'),
       g(4, 'Hidden vegetables', ['Appeal', 'Scorn', 'Beanie', 'Beetle'], 'apPEAl hides PEA, sCORN hides CORN, BEANie hides BEAN and BEETle hides BEET.'),
     ],
-    herring: 'ROCKET sounds like space travel and SWEDE like a nationality, but both are vegetables.',
+    herring: 'BEETLE looks like a bug and BEANIE like a hat, but each hides a vegetable. ELBOW and EYE are body parts here only to make ___PATCH.',
   },
   {
     id: 'web-023',
@@ -286,7 +286,7 @@ export const WEB_BOARDS: WebBoard[] = [
       g(1, 'Chess pieces', ['Rook', 'Pawn', 'Bishop', 'Knight'], 'Four of the six chess pieces.'),
       g(2, 'Ranks of the peerage', ['Duke', 'Earl', 'Viscount', 'Marquess'], 'Hereditary ranks of the British peerage (a knight is not a peer).'),
       g(3, 'KING___', ['Fisher', 'Dom', 'Pin', 'Size'], 'Kingfisher, kingdom, kingpin and king-size.'),
-      g(4, 'Sound like royal words', ['Air', 'Thrown', 'Prints', 'Barren'], 'AIR sounds like heir, THROWN like throne, PRINTS like prince and BARREN like baron.'),
+      g(4, 'Sound like royal words', ['Air', 'Thrown', 'Rain', 'Barren'], 'AIR sounds like heir, THROWN like throne, RAIN like reign and BARREN like baron.'),
     ],
     herring: 'BARREN sounds like a noble title (baron), but it is a homophone. KNIGHT and BISHOP sound courtly but are chess pieces.',
   },
@@ -296,10 +296,10 @@ export const WEB_BOARDS: WebBoard[] = [
     groups: [
       g(1, 'Citrus fruits', ['Lemon', 'Satsuma', 'Kumquat', 'Clementine'], 'Four members of the citrus family.'),
       g(2, 'Stone fruits', ['Plum', 'Peach', 'Apricot', 'Cherry'], 'Each has a single hard stone at its centre.'),
-      g(3, '___ APPLE', ['Pine', 'Crab', 'Toffee', 'Custard'], 'Pineapple, crab apple, toffee apple and custard apple.'),
+      g(3, '___ APPLE', ['Pine', 'Crab', 'Big', 'Bad'], 'Pineapple, crab apple, the Big Apple (New York) and a bad apple.'),
       g(4, 'Hidden fruits', ['Update', 'Appear', 'Sublime', 'Figure'], 'upDATE hides DATE, apPEAR hides PEAR, subLIME hides LIME and FIGure hides FIG.'),
     ],
-    herring: 'PINE and CRAB look like nature words, but they are ___ APPLE fruits. CUSTARD APPLE is a real fruit too.',
+    herring: 'PINE and CRAB look like nature words, but they complete ___ APPLE. CHERRY and PLUM are fruits in plain sight; the hidden ones (DATE, PEAR, LIME, FIG) are tucked inside other words.',
   },
   {
     id: 'web-027',
@@ -352,7 +352,7 @@ export const WEB_BOARDS: WebBoard[] = [
       g(1, 'Mountain ranges', ['Alps', 'Andes', 'Pyrenees', 'Urals'], 'Ranges in Europe, South America, France and Spain, and Russia.'),
       g(2, 'Climbing gear', ['Harness', 'Carabiner', 'Crampon', 'Piton'], 'Kit for roped climbing and ice.'),
       g(3, '___CAP', ['Knee', 'Night', 'Toe', 'Snow'], 'Kneecap, nightcap, toecap and snowcap.'),
-      g(4, 'Sound like hillwalking words', ['Peek', 'Clime', 'Veil', 'Tore'], 'PEEK sounds like peak, CLIME like climb, VEIL like vale and TORE like tor (a rocky hilltop).'),
+      g(4, 'Sound like hillwalking words', ['Peek', 'Clime', 'Veil', 'Bolder'], 'PEEK sounds like peak, CLIME like climb, VEIL like vale (a valley) and BOLDER like boulder.'),
     ],
     herring: 'KNEE and TOE look like body parts, but there are only two: they join NIGHT and SNOW as ___CAP words.',
   },
@@ -371,7 +371,7 @@ export const WEB_BOARDS: WebBoard[] = [
     id: 'web-033',
     title: 'Playtime',
     groups: [
-      g(1, 'Playground equipment', ['Swing', 'Slide', 'Seesaw', 'Roundabout'], 'Four fixtures of a children’s playground.'),
+      g(1, 'Playground equipment', ['Swing', 'Slide', 'Seesaw', 'Monkey bars'], 'Four fixtures of a children’s playground.'),
       g(2, 'Things with strings', ['Puppet', 'Kite', 'Yo-yo', 'Banjo'], 'Each depends on its strings to work.'),
       g(3, '___HOUSE', ['Doll', 'Green', 'Light', 'Ware'], 'Dollhouse, greenhouse, lighthouse and warehouse.'),
       g(4, 'Hidden toys', ['Ballot', 'Strain', 'Scarf', 'Laptop'], 'BALLot hides BALL, sTRAIN hides TRAIN, sCARf hides CAR and lapTOP hides TOP.'),
@@ -395,10 +395,10 @@ export const WEB_BOARDS: WebBoard[] = [
     groups: [
       g(1, 'Breads', ['Naan', 'Pitta', 'Bagel', 'Brioche'], 'Breads from India, the Eastern Mediterranean, Jewish baking and France.'),
       g(2, 'Japanese foods', ['Ramen', 'Tempura', 'Miso', 'Udon'], 'Noodle soup, battered fry, fermented paste and thick noodles.'),
-      g(3, '___ ROLL', ['Spring', 'Egg', 'Sausage', 'Drum'], 'Spring roll, egg roll, sausage roll and drumroll.'),
+      g(3, '___ ROLL', ['Spring', 'Egg', 'Cinnamon', 'Drum'], 'Spring roll, egg roll, cinnamon roll and drumroll.'),
       g(4, 'Anagrams of foods', ['Cheap', 'Reap', 'Coat', 'Skate'], 'CHEAP = PEACH, REAP = PEAR, COAT = TACO, SKATE = STEAK.'),
     ],
-    herring: 'SKATE is a fish you might eat, but here it is an anagram of STEAK. EGG and SAUSAGE are foods too, yet both belong to ___ ROLL.',
+    herring: 'SKATE is a fish you might eat, but here it is an anagram of STEAK. EGG and CINNAMON are foods too, yet both belong to ___ ROLL.',
   },
   {
     id: 'web-036',
@@ -409,7 +409,7 @@ export const WEB_BOARDS: WebBoard[] = [
       g(3, 'SUN___', ['Flower', 'Dial', 'Burn', 'Glasses'], 'Sunflower, sundial, sunburn and sunglasses.'),
       g(4, 'Hidden star signs', ['Library', 'Diaries', 'Scorpion', 'Chameleon'], 'LIBRAry hides LIBRA, diARIES hides ARIES, SCORPIOn hides SCORPIO and chameLEOn hides LEO.'),
     ],
-    herring: 'SCORPION and CHAMELEON are desert creatures, but not mammals: they hide SCORPIO and LEO.',
+    herring: 'SCORPION and CHAMELEON look like they could join the desert animals, but neither is a mammal: they hide SCORPIO and LEO.',
   },
   {
     id: 'web-037',
@@ -450,7 +450,7 @@ export const WEB_BOARDS: WebBoard[] = [
     groups: [
       g(1, 'Cereal grains', ['Wheat', 'Barley', 'Rye', 'Millet'], 'Four grains grown for flour and food.'),
       g(2, 'Types of pastry', ['Choux', 'Filo', 'Puff', 'Shortcrust'], 'Four classic pastries.'),
-      g(3, '___ PIN', ['Hair', 'Safety', 'Rolling', 'Drawing'], 'Hairpin, safety pin, rolling pin and drawing pin.'),
+      g(3, '___ PIN', ['Hair', 'Safety', 'Rolling', 'Bowling'], 'Hairpin, safety pin, rolling pin and bowling pin.'),
       g(4, 'Sound like baking words', ['Need', 'Doe', 'Bred', 'Role'], 'NEED sounds like knead, DOE like dough, BRED like bread and ROLE like roll.'),
     ],
     herring: 'ROLLING suggests rolling out dough, but it belongs with ROLLING PIN. CHOUX sounds like shoe.',
@@ -482,7 +482,7 @@ export const WEB_BOARDS: WebBoard[] = [
     title: 'Sweet shop',
     groups: [
       g(1, 'Nuts', ['Almond', 'Cashew', 'Pecan', 'Pistachio'], 'Four nuts from the baking aisle.'),
-      g(2, 'Types of sugar', ['Caster', 'Icing', 'Brown', 'Demerara'], 'Fine, powdered, molasses-rich and coarse golden sugars.'),
+      g(2, 'Types of sugar', ['Cane', 'Granulated', 'Brown', 'Powdered'], 'Sugar from sugar cane, everyday granulated, molasses-rich brown and fine powdered (icing) sugar.'),
       g(3, '___NUT', ['Dough', 'Coco', 'Pea', 'Wing'], 'Doughnut, coconut, peanut and wingnut.'),
       g(4, 'Sound like desserts', ['Moose', 'Sunday', 'Pi', 'Tort'], 'MOOSE sounds like mousse, SUNDAY like sundae, PI like pie and TORT like torte.'),
     ],
@@ -493,9 +493,9 @@ export const WEB_BOARDS: WebBoard[] = [
     title: 'Snow day',
     groups: [
       g(1, 'Winter sports', ['Skiing', 'Luge', 'Curling', 'Biathlon'], 'Four events of the Winter Olympics.'),
-      g(2, 'Wintry weather', ['Sleet', 'Slush', 'Frost', 'Hail'], 'Icy forms of weather.'),
-      g(3, 'SNOW___', ['Flake', 'Drop', 'Plough', 'Shoe'], 'Snowflake, snowdrop, snowplough and snowshoe.'),
-      g(4, 'Hidden ICE', ['Justice', 'Novice', 'Licence', 'Notice'], 'justICE, novICE, notICE and lICEnce all contain ICE.'),
+      g(2, 'Wintry weather', ['Sleet', 'Blizzard', 'Frost', 'Hail'], 'Icy forms of weather.'),
+      g(3, 'SNOW___', ['Flake', 'Drop', 'Ball', 'Shoe'], 'Snowflake, snowdrop, snowball and snowshoe.'),
+      g(4, 'Hidden ICE', ['Justice', 'Novice', 'Advice', 'Notice'], 'justICE, novICE, advICE and notICE all contain ICE.'),
     ],
     herring: 'CURLING sounds like a hairstyle and HAIL like a greeting, but one is a sport and the other weather.',
   },
@@ -527,7 +527,7 @@ export const WEB_BOARDS: WebBoard[] = [
     groups: [
       g(1, 'Drawing and painting media', ['Charcoal', 'Pastel', 'Gouache', 'Crayon'], 'Materials artists draw or paint with.'),
       g(2, 'In the artist’s studio', ['Easel', 'Palette', 'Canvas', 'Smock'], 'The stand, the mixing board, the surface and the protective overall.'),
-      g(3, '___PIECE', ['Master', 'Mouth', 'Centre', 'Time'], 'Masterpiece, mouthpiece, centrepiece and timepiece.'),
+      g(3, '___PIECE', ['Master', 'Mouth', 'Show', 'Time'], 'Masterpiece, mouthpiece, showpiece and timepiece.'),
       g(4, 'Sound like art words', ['Palate', 'Hew', 'Die', 'Freeze'], 'PALATE sounds like palette, HEW like hue, DIE like dye and FREEZE like frieze.'),
     ],
     herring: 'PALATE sounds like PALETTE and sits in the MOUTH, but it is a homophone, not a ___PIECE.',
@@ -569,7 +569,7 @@ export const WEB_BOARDS: WebBoard[] = [
     id: 'web-051',
     title: 'Night at the theatre',
     groups: [
-      g(1, 'Parts of a theatre', ['Stalls', 'Wings', 'Foyer', 'Balcony'], 'Where actors wait offstage, and where audiences gather and sit.'),
+      g(1, 'Parts of a theatre', ['Box', 'Wings', 'Foyer', 'Balcony'], 'Where actors wait offstage (the wings), and where audiences gather (the foyer) and sit (boxes and the balcony).'),
       g(2, 'Shakespeare title characters', ['Hamlet', 'Macbeth', 'Othello', 'Lear'], 'Each gives his name to a Shakespeare tragedy.'),
       g(3, '___PLAY', ['Role', 'Screen', 'Word', 'Down'], 'Role-play, screenplay, wordplay and downplay.'),
       g(4, 'Sound like theatre words', ['Queue', 'Seen', 'Isle', 'Bough'], 'QUEUE sounds like cue, SEEN like scene, ISLE like aisle and BOUGH like bow.'),
@@ -580,7 +580,7 @@ export const WEB_BOARDS: WebBoard[] = [
     id: 'web-052',
     title: 'Geometry lesson',
     groups: [
-      g(1, 'Polygons', ['Hexagon', 'Pentagon', 'Octagon', 'Trapezium'], 'Flat shapes with six, five, eight and four straight sides.'),
+      g(1, 'Polygons', ['Hexagon', 'Pentagon', 'Octagon', 'Decagon'], 'Flat shapes with six, five, eight and ten straight sides.'),
       g(2, 'Types of angle', ['Acute', 'Obtuse', 'Reflex', 'Right'], 'Less than 90°, between 90° and 180°, more than 180°, and exactly 90°.'),
       g(3, 'SQUARE ___', ['Meal', 'Dance', 'Root', 'Peg'], 'A square meal, square dance, square root and square peg.'),
       g(4, 'Anagrams of geometry words', ['Once', 'Glean', 'Cafe', 'Escort'], 'ONCE = CONE, GLEAN = ANGLE, CAFE = FACE, ESCORT = SECTOR.'),
@@ -668,11 +668,11 @@ export const WEB_BOARDS: WebBoard[] = [
     id: 'web-060',
     title: 'Last orders',
     groups: [
-      g(1, 'Pub games', ['Darts', 'Snooker', 'Skittles', 'Dominoes'], 'Four games played in pubs.'),
-      g(2, 'Beer styles', ['Stout', 'Bitter', 'Pilsner', 'Mild'], 'Four styles of beer.'),
-      g(3, '___POOL', ['Car', 'Whirl', 'Rock', 'Gene'], 'Carpool, whirlpool, rock pool and gene pool.'),
+      g(1, 'Pub games', ['Darts', 'Snooker', 'Billiards', 'Dominoes'], 'Four games played in pubs and bars.'),
+      g(2, 'Beer styles', ['Stout', 'Bitter', 'Pilsner', 'Sour'], 'Four styles of beer.'),
+      g(3, '___POOL', ['Car', 'Whirl', 'Swimming', 'Gene'], 'Carpool, whirlpool, swimming pool and gene pool.'),
       g(4, 'Anagrams of drinks', ['Regal', 'Report', 'Cried', 'Dame'], 'REGAL = LAGER, REPORT = PORTER, CRIED = CIDER, DAME = MEAD.'),
     ],
-    herring: 'STOUT, BITTER and MILD look like adjectives, but they are beers. REGAL and REPORT are LAGER and PORTER rearranged.',
+    herring: 'STOUT, BITTER and SOUR look like adjectives, but they are beers. REGAL and REPORT are LAGER and PORTER rearranged.',
   },
 ];

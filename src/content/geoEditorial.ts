@@ -65,7 +65,7 @@ export const TIER_2: string[] = [
 
 /** Accurate, interesting one- or two-sentence facts about the FLAG's design or history. */
 export const FLAG_FACTS: Record<string, string> = {
-  ad: "The coat of arms combines symbols of Andorra's history: the mitre and crozier of the Bishop of Urgell, the stripes of Foix and Catalonia, and the cows of Béarn, above the motto 'Virtus Unita Fortior' ('Strength united is stronger').",
+  ad: "The coat of arms combines symbols of Andorra's history: the mitre and crozier of the Bishop of Urgell, the stripes of Foix and Catalonia, and the cows of Béarn, above the motto 'Virtus Unita Fortior' ('United virtue is stronger').",
   ae: "It was adopted on 2 December 1971, the day the United Arab Emirates was formed, and uses the four Pan-Arab colours.",
   af: "Afghanistan's flag has changed many times since the early 20th century. Since 2021 the Taliban authorities have used a white flag bearing the shahada, while the black, red and green tricolour was the flag of the previous Islamic Republic.",
   ag: "Designed in 1967 by art teacher Reginald Samuel, its rising sun stands for the dawn of a new era and its V shape for victory.",
@@ -92,7 +92,7 @@ export const FLAG_FACTS: Record<string, string> = {
   bt: "The white Druk, or Thunder Dragon, clutches jewels representing the nation's wealth; Bhutan's own name, Druk Yul, means 'Land of the Thunder Dragon'.",
   bw: "The light blue represents water, and especially rain, which is so precious that 'Pula' ('rain') is both the national motto and the name of the currency.",
   by: "The red-and-white strip at the hoist is a traditional embroidery pattern; the current design came out of a 1995 referendum that replaced the white-red-white flag.",
-  bz: "Its coat of arms shows two woodcutters beside a mahogany tree, reflecting the timber trade; it is one of very few national flags depicting human figures.",
+  bz: "Its coat of arms shows two men holding logging tools beside a mahogany tree, reflecting the timber trade; it is one of very few national flags depicting human figures.",
   ca: "The Maple Leaf flag was adopted only in 1965, after a long parliamentary 'Great Flag Debate'; before then Canada flew versions of the Red Ensign.",
   cd: "The current design, adopted in 2006, has a red diagonal edged in yellow and a yellow star on sky blue, closely resembling the flag used in the 1960s.",
   cf: "It joins the blue, white and red of France with the Pan-African green, yellow and red, an idea of independence leader Barthélemy Boganda, who hoped for respect between Africa and Europe.",
@@ -111,7 +111,7 @@ export const FLAG_FACTS: Record<string, string> = {
   de: "Black, red and gold were adopted by the liberal revolutionaries of 1848 and are traditionally linked to the uniforms of the Lützow Free Corps, which fought Napoleon.",
   dj: "The light blue and green are associated with the Issa and Afar peoples, and the red star represents unity.",
   dk: "The Dannebrog is often cited as the oldest national flag in continuous use. Legend says it fell from the sky during the Battle of Lyndanisse in 1219.",
-  dm: "A Sisserou parrot, the national bird, sits at its centre, making it one of only two national flags with purple; the ten green stars represent Dominica's ten parishes.",
+  dm: "A Sisserou parrot, the national bird, sits at its centre, making it one of very few national flags to feature purple; the ten green stars represent Dominica's ten parishes.",
   do: "Its coat of arms contains an open Bible, a feature found on no other national flag.",
   dz: "The green and white flag with a red crescent and star was used by the National Liberation Front during the war of independence and became the national flag in 1962.",
   ec: "Its coat of arms, showing Mount Chimborazo and a condor, is what distinguishes it from Colombia's very similar flag.",
@@ -140,11 +140,11 @@ export const FLAG_FACTS: Record<string, string> = {
   hr: "The red-and-white chequerboard shield, the 'šahovnica', is topped by a crown of five small shields representing Croatia's historic regions.",
   ht: "Tradition holds that the flag was born in 1803, when Jean-Jacques Dessalines tore the white out of a French tricolour.",
   hu: "During the 1956 uprising, protesters cut the communist emblem out of the flag's centre, and the flag with a hole became a symbol of the revolution.",
-  id: "Called 'Sang Saka Merah-Putih', it is identical to Monaco's flag apart from its proportions (2:3 rather than 4:5).",
+  id: "Known as 'Sang Merah Putih' ('the Red and White'), it is identical to Monaco's flag apart from its proportions (2:3 rather than 4:5).",
   ie: "Green represents the Gaelic tradition, orange the followers of William of Orange, and white the hope for peace between them.",
   il: "The blue stripes are inspired by the tallit, the Jewish prayer shawl, and the centre bears the Star of David.",
   in: "The navy-blue Ashoka Chakra at its centre has 24 spokes and is taken from the Lion Capital of Ashoka at Sarnath.",
-  iq: "Since 2008 the words 'Allahu Akbar' have been written in Kufic script; previously they were shown in a handwriting style said to be Saddam Hussein's.",
+  iq: "Since 2004 the words 'Allahu Akbar' have been written in Kufic script; previously they were shown in a handwriting style said to be Saddam Hussein's.",
   ir: "The phrase 'Allahu Akbar' is repeated 22 times along the edges of the green and red bands, a reference to the date of the 1979 revolution, 22 Bahman in the Iranian calendar.",
   is: "Its colours are often said to represent Iceland's landscape: blue for the mountains and sea, white for ice and snow, and red for volcanic fire.",
   it: "The 'Tricolore' was inspired by the French flag; it was first adopted as a national flag in 1797 by the Cispadane Republic.",
@@ -168,7 +168,7 @@ export const FLAG_FACTS: Record<string, string> = {
   lk: "The golden lion holding a sword dates back to the Kandyan kingdom, and the green and orange stripes represent the Muslim and Tamil communities.",
   lr: "Modelled on the US flag, its 11 stripes represent the signatories of the Liberian Declaration of Independence.",
   ls: "A black mokorotlo, the traditional conical Basotho hat, sits at its centre.",
-  lt: "First adopted in 1918 and restored in 1989, its yellow is said to stand for the sun, green for the forests and red for courage and the blood shed for the country.",
+  lt: "First adopted in 1918 and restored in 1988, its yellow is said to stand for the sun, green for the forests and red for courage and the blood shed for the country.",
   lu: "It looks very like the Dutch flag but uses a lighter blue and longer proportions.",
   lv: "Its distinctive carmine 'Latvian red' design is one of the oldest flag designs in the world, with a red-white-red banner mentioned in a 13th-century chronicle.",
   ly: "The red, black and green flag with a crescent and star, first used by the Kingdom of Libya, was restored in 2011, replacing Gaddafi's plain green flag.",
@@ -193,7 +193,7 @@ export const FLAG_FACTS: Record<string, string> = {
   na: "The golden sun has 12 triangular rays, and the red diagonal band represents the people and their struggle for independence.",
   ne: "Its orange disc represents the sun; the flag is often confused with India's, which has a blue wheel instead.",
   ng: "It was designed in 1958 by student Taiwo Akinkunmi as an entry in a national flag competition.",
-  ni: "Its coat of arms contains a rainbow, making it one of only two national flags with purple.",
+  ni: "Its coat of arms contains a rainbow, making it one of very few national flags to include purple.",
   nl: "The top stripe was originally orange, after William of Orange, and changed to red over the 17th century.",
   no: "Adopted in 1821 while Norway was in a union with Sweden, its red, white and blue are often linked to the 'liberty colours' of France, the United States and Britain.",
   np: "It is the only non-rectangular national flag, made of two stacked pennants, and Nepal's constitution gives precise geometric instructions for drawing it.",
@@ -317,7 +317,7 @@ export const CAPITAL_FACTS: Record<string, string> = {
   dz: "Algiers is nicknamed 'Alger la Blanche' ('Algiers the White'), and its Casbah is a UNESCO World Heritage Site.",
   ec: "Quito's historic centre was among the first sites inscribed on the UNESCO World Heritage List, in 1978.",
   ee: "Tallinn's medieval Old Town is a UNESCO World Heritage Site.",
-  eg: "Cairo is the official capital, though since 2023 ministries have been moving to the New Administrative Capital being built to its east.",
+  eg: "Cairo is the official capital, though in recent years ministries have been moving to the New Administrative Capital being built to its east.",
   er: "Asmara is known for its modernist architecture from the 1930s and was listed as a UNESCO World Heritage Site in 2017.",
   es: "Madrid became the seat of the Spanish court in 1561 under Philip II.",
   et: "Addis Ababa, whose name means 'new flower', is the headquarters of the African Union.",
@@ -539,7 +539,7 @@ export const CAPITAL_OVERRIDES: Record<string, { capitals: CapitalEntry[]; note:
   il: {
     capitals: [
       { name: "Jerusalem", credit: "full" },
-      { name: "Tel Aviv", variants: ["Tel Aviv-Yafo", "Tel Aviv-Jaffa", "Tel Aviv Yafo"], credit: "partial" },
+      { name: "Tel Aviv", variants: ["Tel Aviv-Yafo", "Tel Aviv-Jaffa", "Tel Aviv Yafo"], role: "temporary seat of government 1948–1949", credit: "partial" },
     ],
     note: "Israel designates Jerusalem as its capital and its government sits there, but the city's status is disputed internationally and most countries keep their embassies in the Tel Aviv area.",
   },
@@ -729,7 +729,7 @@ export const FLAG_LOOKALIKES: string[][] = [
   ["ie", "ci", "it"], // vertical green/orange/white tricolours
   ["it", "mx"], // green-white-red vertical tricolours
   ["au", "nz"], // blue ensigns with the Southern Cross
-  ["nl", "lu", "fr"], // red-white-blue tricolours
+  ["nl", "lu"], // red-white-blue horizontal tricolours
   ["no", "is"], // red/blue Nordic crosses
   ["dk", "ch"], // white cross on red
   ["sn", "ml", "gn", "cm"], // green-yellow-red vertical tricolours
@@ -737,7 +737,7 @@ export const FLAG_LOOKALIKES: string[][] = [
   ["co", "ec", "ve"], // yellow-blue-red (Gran Colombia family)
   ["ht", "li"], // blue over red bicolours
   ["qa", "bh"], // serrated white band at the hoist
-  ["eg", "iq", "ye", "sy"], // red-white-black horizontal tricolours
+  ["eg", "iq", "ye"], // red-white-black horizontal tricolours
   ["jo", "ps", "sd"], // black-white-green with red hoist triangle
   ["ae", "kw"], // Pan-Arab colours with a hoist panel
   ["hn", "ni", "sv"], // blue-white-blue Central American flags

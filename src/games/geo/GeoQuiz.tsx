@@ -226,7 +226,10 @@ function Question({ kind, c, mode, difficulty, paused, last, streak, onAnswer, o
       ) : (
         <div className="country-hero">
           <span className="prompt-label">What is the capital of…</span>
-          <div className="big-word">{c.name}</div>
+          <div className="country-line">
+            <img className="flag-chip" src={flagUrl(c.code)} alt="" width={64} height={48} />
+            <div className="big-word">{c.name}</div>
+          </div>
           <span className="meta">{c.subregion}</span>
         </div>
       )}

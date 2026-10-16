@@ -68,7 +68,7 @@ const EVERYDAY = build('everyday', [
     example: 'He kept meticulous notes on every experiment he ran.',
     synonyms: ['painstaking', 'scrupulous', 'thorough', 'punctilious'],
     antonyms: ['careless', 'sloppy', 'slapdash'],
-    nuance: 'Praises thoroughness; unlike "fussy" or "pedantic" it rarely implies the care is excessive. From Latin "meticulosus", fearful, so the original sense was timid carefulness.',
+    nuance: 'Praises thoroughness; unlike "fussy" or "pedantic" it rarely implies the care is excessive. From Latin "meticulosus", fearful: in the 1500s it meant timid, and the detail-minded sense arrived from French in the 1800s.',
     forms: ['meticulously', 'meticulousness'],
   },
   {
@@ -156,7 +156,7 @@ const EVERYDAY = build('everyday', [
     example: 'He was reticent about his time in the army and rarely discussed it.',
     synonyms: ['reserved', 'taciturn', 'tight-lipped', 'restrained'],
     antonyms: ['forthcoming', 'candid', 'talkative'],
-    nuance: 'Increasingly used to mean "reluctant" ("reticent to invest"). Traditionally it applies to speech and self-disclosure, not to unwillingness in general; careful writers keep the two apart.',
+    nuance: 'Also widely used to mean "reluctant" ("reticent to invest"). Dictionaries accept that sense, but some style guides prefer to keep the word for reluctance to speak or reveal things.',
     forms: ['reticence', 'reticently'],
   },
   {
@@ -653,7 +653,7 @@ const MISUSED = build('misused', [
     example: 'The novel mocks an effete aristocracy that has forgotten how to work.',
     synonyms: ['decadent', 'enfeebled', 'spent', 'overrefined'],
     antonyms: ['vigorous', 'robust', 'energetic'],
-    nuance: 'Originally meant worn out and no longer able to bear young (Latin "effetus"). Often misused to mean simply "snobbish" or "elite", and it can carry a sneer about masculinity, so use it with care.',
+    nuance: 'Originally meant worn out and no longer able to bear young (Latin "effetus"). It is also used to mean effeminate, often as a sneer, so use it with care.',
   },
   {
     word: 'infer',
@@ -706,7 +706,7 @@ const MISUSED = build('misused', [
     definition: 'To kill a person or animal with an electric shock.',
     example: 'Workers were warned they could be electrocuted by the exposed cables.',
     synonyms: ['shock', 'zap', 'execute'],
-    antonyms: ['revive', 'resuscitate'],
+    antonyms: [],
     nuance: 'A blend of "electro-" and "execute", so strictly it means a fatal shock. It is commonly used for non-fatal shocks ("I electrocuted myself on the toaster"), which many dictionaries now record but careful writers avoid.',
     forms: ['electrocuted', 'electrocutes', 'electrocuting', 'electrocution'],
   },
@@ -848,7 +848,7 @@ const MISUSED = build('misused', [
     example: 'The library deprecated the old function and will remove it next year.',
     synonyms: ['disapprove of', 'deplore', 'disparage', 'belittle'],
     antonyms: ['approve', 'endorse', 'commend'],
-    nuance: 'Confused with "depreciate" (to fall in value or to belittle). "Self-deprecating" now means modestly belittling yourself, a sense that drifted over from "self-depreciating" and is fully standard.',
+    nuance: 'Confused with "depreciate" (to fall in value or to belittle). In "self-deprecating" it means modestly belittling yourself, a sense it shares with "depreciate"; that use is fully standard.',
     forms: ['deprecated', 'deprecates', 'deprecating', 'deprecation'],
   },
   {
@@ -940,7 +940,7 @@ const IDEAS = build('ideas', [
     example: 'The song captured the anxious zeitgeist of the early 2020s.',
     synonyms: ['spirit of the age', 'ethos', 'climate', 'mood'],
     antonyms: [],
-    nuance: 'German "Zeit" (time) + "Geist" (spirit), associated with Hegel\'s philosophy of history. Often capitalised, as German nouns are.',
+    nuance: 'German "Zeit" (time) + "Geist" (spirit). The German term goes back to Herder in the 18th century and is often linked with Hegel. Often capitalised, as German nouns are.',
   },
   {
     word: 'heuristic',
@@ -1016,7 +1016,7 @@ const IDEAS = build('ideas', [
     example: 'The office was utilitarian: grey desks, strip lights and nothing on the walls.',
     synonyms: ['functional', 'practical', 'serviceable', 'plain'],
     antonyms: ['decorative', 'ornamental', 'impractical'],
-    nuance: 'Utilitarianism is the ethical theory of Bentham and Mill that the right action produces the greatest good for the greatest number. The everyday "plain but functional" sense grew out of it.',
+    nuance: 'Utilitarianism is the ethical theory of Bentham and Mill that the right action produces the greatest good for the greatest number. The everyday "plain but functional" sense is recorded a few decades later, by the 1840s.',
     forms: ['utilitarianism'],
   },
   {
@@ -1477,7 +1477,7 @@ const CHARACTER = build('character', [
     example: 'Working for a mercurial boss meant never knowing which version would arrive.',
     synonyms: ['volatile', 'capricious', 'temperamental', 'fickle'],
     antonyms: ['stable', 'steady', 'consistent'],
-    nuance: 'From Mercury, the quick Roman messenger god, and the element mercury, which moves unpredictably. Can also mean lively and quick-witted.',
+    nuance: 'From the planet Mercury: astrologers linked people born under it with the quick, changeable traits of the messenger god, and the restless liquid metal reinforced the idea. Can also mean lively and quick-witted.',
     forms: ['mercurially'],
   },
   {
@@ -1631,7 +1631,7 @@ const CHARACTER = build('character', [
     example: 'A querulous voice from the back asked, again, when lunch would be.',
     synonyms: ['whiny', 'peevish', 'petulant', 'fretful'],
     antonyms: ['uncomplaining', 'contented', 'easygoing'],
-    nuance: 'Often describes a tone of voice. Shares a root with "query" and "quarrel" via Latin "queri", to complain.',
+    nuance: 'Often describes a tone of voice. Shares a root with "quarrel" via Latin "queri", to complain.',
     forms: ['querulously', 'querulousness'],
   },
   {
@@ -2045,7 +2045,7 @@ const DELIGHT = build('delight', [
     example: 'His lackadaisical attitude to revision showed in his grades.',
     synonyms: ['lazy', 'half-hearted', 'listless', 'apathetic'],
     antonyms: ['diligent', 'enthusiastic', 'conscientious'],
-    nuance: 'From the old exclamation "lackaday" (an expression of regret), which also produced "alack". Suggests languor more than defiance.',
+    nuance: 'From the old exclamation "lackaday" (short for "alack the day"), an expression of regret; it first meant sentimentally languishing. Suggests languor more than defiance.',
     forms: ['lackadaisically'],
   },
   {
@@ -2234,7 +2234,7 @@ const PERSUASION = build('persuasion', [
     example: 'Nobody proposed banning all cars; that is a straw man.',
     synonyms: ['caricature', 'misrepresentation', 'distortion'],
     antonyms: ['steelman'],
-    nuance: 'The opposite practice, restating an opponent\'s view in its strongest form before replying, is sometimes called "steelmanning". British spelling often "strawman" or "straw-man".',
+    nuance: 'The opposite practice, restating an opponent\'s view in its strongest form before replying, is sometimes called "steelmanning". Also written "strawman" or "straw-man".',
     forms: ['strawman', 'straw-man', 'straw men'],
   },
   {
@@ -2307,7 +2307,7 @@ const PERSUASION = build('persuasion', [
     word: 'disingenuous',
     partOfSpeech: 'adjective',
     difficulty: 3,
-    definition: 'Not sincere; pretending to know less or care more than you actually do.',
+    definition: 'Not candid or sincere, often by pretending to be more innocent or less informed than you really are.',
     example: 'It is disingenuous to claim surprise when you wrote the rule yourself.',
     synonyms: ['insincere', 'hypocritical', 'duplicitous', 'two-faced'],
     antonyms: ['sincere', 'candid', 'ingenuous'],
@@ -2355,7 +2355,7 @@ const PERSUASION = build('persuasion', [
     example: 'When asked where the money went, he prevaricated and changed the subject.',
     synonyms: ['equivocate', 'hedge', 'evade', 'stall'],
     antonyms: ['answer directly', 'level with'],
-    nuance: 'In American usage it often means outright lying; in British usage it more often means stalling or being evasive. Not the same as "procrastinate", though they are often confused.',
+    nuance: 'Dictionaries differ on how far it goes: some treat it as a polite word for lying, others stress evasion and stalling. Not the same as "procrastinate", though they are often confused.',
     forms: ['prevaricated', 'prevaricates', 'prevaricating', 'prevarication'],
   },
   {
@@ -2516,7 +2516,7 @@ const PERSUASION = build('persuasion', [
     definition: 'A quality that evokes pity or sadness; in rhetoric, an appeal to the audience\'s emotions.',
     example: 'The charity appeal relied on pathos, showing a shivering puppy in the snow.',
     synonyms: ['poignancy', 'emotional appeal', 'sadness', 'plaintiveness'],
-    antonyms: ['bathos', 'logos'],
+    antonyms: ['logos'],
     nuance: 'Not to be confused with "bathos", an abrupt, unintentionally comic drop from the lofty to the trivial. "Pathetic" originally meant moving or affecting, not contemptibly weak.',
     forms: ['pathetic'],
   },

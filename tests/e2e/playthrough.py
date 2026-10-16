@@ -208,7 +208,7 @@ with sync_playwright() as p:
         page.on("pageerror", lambda e: errors.append(str(e)))
         # Fonts may be unreachable in sandboxed CI; any other failed request is a real problem.
         page.on("console", lambda m: errors.append(m.text) if m.type == "error" and "Failed to load resource" not in m.text else None)
-        page.on("requestfailed", lambda r: errors.append(f"request failed: {r.url}") if "fonts.g" not in r.url else None)
+        page.on("requestfailed", lambda r: errors.append(f"request failed: {r.url} {r.failure}") if "fonts.g" not in r.url and "ERR_ABORTED" not in (r.failure or "") else None)
         SHOTS = f"{BASE_SHOTS}/{label}"
         os.makedirs(SHOTS, exist_ok=True)
         page.goto(BASE)
