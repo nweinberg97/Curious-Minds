@@ -1,0 +1,678 @@
+import type { WebBoard, WebGroup } from './types';
+
+/**
+ * Word Web boards. Original puzzles written by the Curious Minds editors.
+ * Each board hides four groups of four; levels 1-4 run from plain to devious.
+ */
+
+type Four = [string, string, string, string];
+
+const g = (level: 1 | 2 | 3 | 4, title: string, words: Four, explanation: string): WebGroup => ({
+  level,
+  title,
+  words,
+  explanation,
+});
+
+export const WEB_BOARDS: WebBoard[] = [
+  {
+    id: 'web-001',
+    title: 'Kitchen science',
+    groups: [
+      g(1, 'Kitchen utensils', ['Ladle', 'Spatula', 'Tongs', 'Grater'], 'Hand-held tools for serving, flipping, gripping and grating.'),
+      g(2, 'Cooking in hot liquid', ['Poach', 'Braise', 'Simmer', 'Blanch'], 'Each method cooks food in hot water, stock or another liquid.'),
+      g(3, '___CAKE', ['Tea', 'Fish', 'Oat', 'Cheese'], 'Teacake, fishcake, oatcake and cheesecake.'),
+      g(4, 'Add a letter to get a drink', ['Win', 'Bee', 'Mad', 'Late'], 'WIN + E = WINE, BEE + R = BEER, MAD + E = MEAD, LATE + T = LATTE.'),
+    ],
+    herring: 'TEA is already a drink, but it makes TEACAKE; LATE quietly turns into LATTE.',
+  },
+  {
+    id: 'web-002',
+    title: 'Night shift',
+    groups: [
+      g(1, 'Nocturnal animals', ['Owl', 'Badger', 'Bat', 'Fox'], 'All four are most active after dark.'),
+      g(2, 'Seen in the night sky', ['Comet', 'Meteor', 'Aurora', 'Nebula'], 'Celestial sights: a comet, a meteor (shooting star), an aurora and a nebula.'),
+      g(3, '___LIGHT', ['Flash', 'Spot', 'Search', 'Head'], 'Flashlight, spotlight, searchlight and headlight.'),
+      g(4, 'Hidden animals', ['Scatter', 'Pirate', 'Jewel', 'Grape'], 'sCATter hides CAT, piRATe hides RAT, jEWEl hides EWE and grAPE hides APE.'),
+    ],
+    herring: 'SEARCH and SPOT conjure beams across the night sky, but they belong with ___LIGHT.',
+  },
+  {
+    id: 'web-003',
+    title: 'Orchestra pit',
+    groups: [
+      g(1, 'String instruments', ['Violin', 'Cello', 'Harp', 'Viola'], 'All four make sound from vibrating strings.'),
+      g(2, 'Tempo markings', ['Allegro', 'Largo', 'Presto', 'Adagio'], 'Italian directions for speed: lively, broad and slow, very fast, and slow.'),
+      g(3, '___BOW', ['Cross', 'Long', 'Rain', 'Ox'], 'Crossbow, longbow, rainbow and oxbow.'),
+      g(4, 'Sound like instruments', ['Liar', 'Symbol', 'Base', 'Belle'], 'LIAR sounds like lyre, SYMBOL like cymbal, BASE like bass and BELLE like bell.'),
+    ],
+    herring: 'BASE sounds like the double bass, a string instrument, but it is a homophone, not an instrument. VIOLA is also a flower.',
+  },
+  {
+    id: 'web-004',
+    title: 'Garden party',
+    groups: [
+      g(1, 'Garden flowers', ['Tulip', 'Daisy', 'Poppy', 'Iris'], 'Four familiar flowers of the garden border.'),
+      g(2, 'Garden tools', ['Rake', 'Hoe', 'Trowel', 'Shears'], 'Tools for raking, weeding, planting and clipping.'),
+      g(3, '___FLY', ['Butter', 'Dragon', 'Horse', 'Green'], 'Butterfly, dragonfly, horsefly and greenfly.'),
+      g(4, 'Hidden trees', ['Helmet', 'Cloak', 'First', 'Spine'], 'hELMet hides ELM, clOAK hides OAK, FIRst hides FIR and sPINE hides PINE.'),
+    ],
+    herring: 'IRIS is also part of the eye and SPINE part of the body, but there are no body parts here.',
+  },
+  {
+    id: 'web-005',
+    title: 'Weather report',
+    groups: [
+      g(1, 'Types of cloud', ['Cirrus', 'Cumulus', 'Stratus', 'Nimbus'], 'The basic cloud families: wispy, heaped, layered and rain-bearing.'),
+      g(2, 'Named winds', ['Mistral', 'Sirocco', 'Chinook', 'Harmattan'], 'Regional winds of southern France, North Africa and the Mediterranean, the Rockies, and West Africa.'),
+      g(3, '___STORM', ['Brain', 'Barn', 'Sand', 'Fire'], 'Brainstorm, barnstorm, sandstorm and firestorm.'),
+      g(4, 'Sound like weather', ['Reign', 'Hale', 'Missed', 'Son'], 'REIGN sounds like rain, HALE like hail, MISSED like mist and SON like sun.'),
+    ],
+    herring: 'BRAIN hides RAIN and SAND evokes a desert storm, but both are ___STORM words.',
+  },
+  {
+    id: 'web-006',
+    title: 'Body language',
+    groups: [
+      g(1, 'Bones', ['Femur', 'Tibia', 'Ulna', 'Sternum'], 'Thigh bone, shinbone, forearm bone and breastbone.'),
+      g(2, 'Internal organs', ['Liver', 'Spleen', 'Kidney', 'Pancreas'], 'Four organs of the abdomen.'),
+      g(3, 'Body parts that are also verbs', ['Elbow', 'Shoulder', 'Shin', 'Palm'], 'You can elbow past, shoulder a burden, shin up a tree and palm a card.'),
+      g(4, 'Hidden body parts', ['Machine', 'Pearl', 'Charm', 'Ship'], 'maCHINe hides CHIN, pEARl hides EAR, chARM hides ARM and sHIP hides HIP.'),
+    ],
+    herring: 'SHIN looks like a bone (the tibia is the shinbone), but it is a body part you can use as a verb: to shin up a rope.',
+  },
+  {
+    id: 'web-007',
+    title: 'Seaside',
+    groups: [
+      g(1, 'Seabirds', ['Gull', 'Puffin', 'Gannet', 'Tern'], 'Four birds of coasts and cliffs.'),
+      g(2, 'Shellfish', ['Mussel', 'Oyster', 'Clam', 'Whelk'], 'Molluscs that live in shells.'),
+      g(3, 'SAND___', ['Castle', 'Paper', 'Stone', 'Bank'], 'Sandcastle, sandpaper, sandstone and sandbank.'),
+      g(4, 'Sound like sea creatures', ['Place', 'Soul', 'Muscle', 'Wail'], 'PLACE sounds like plaice, SOUL like sole, MUSCLE like mussel and WAIL like whale.'),
+    ],
+    herring: 'MUSSEL and MUSCLE are both on the board: only one is spelled like the shellfish.',
+  },
+  {
+    id: 'web-008',
+    title: 'Map room',
+    groups: [
+      g(1, 'European capitals', ['Oslo', 'Lisbon', 'Vienna', 'Dublin'], 'Capitals of Norway, Portugal, Austria and Ireland.'),
+      g(2, 'Great rivers', ['Nile', 'Danube', 'Ganges', 'Amazon'], 'Major rivers of Africa, Europe, South Asia and South America.'),
+      g(3, '___LAND countries', ['Ice', 'Fin', 'Thai', 'Ire'], 'Iceland, Finland, Thailand and Ireland.'),
+      g(4, 'Hidden countries', ['Woman', 'Piranha', 'Peruse', 'Scuba'], 'wOMAN hides OMAN, pIRANha hides IRAN, PERUse hides PERU and sCUBA hides CUBA.'),
+    ],
+    herring: 'PIRANHA swims in the AMAZON, but it is hiding IRAN. The DANUBE flows through VIENNA, but rivers and capitals are separate groups.',
+  },
+  {
+    id: 'web-009',
+    title: 'Toolbox',
+    groups: [
+      g(1, 'Hand tools', ['Hammer', 'Chisel', 'Wrench', 'Pliers'], 'Four staples of any toolbox.'),
+      g(2, 'Fasteners', ['Rivet', 'Bolt', 'Nail', 'Screw'], 'Things that hold materials together.'),
+      g(3, '___SAW', ['See', 'Jig', 'Hack', 'Chain'], 'Seesaw, jigsaw, hacksaw and chainsaw.'),
+      g(4, 'Anagrams of tools', ['Life', 'Law', 'Panel', 'Spar'], 'LIFE = FILE, LAW = AWL, PANEL = PLANE, SPAR = RASP.'),
+    ],
+    herring: 'PANEL and SPAR sound like workshop materials, but they are tools in disguise: PLANE and RASP.',
+  },
+  {
+    id: 'web-010',
+    title: 'Pantry',
+    groups: [
+      g(1, 'Leafy herbs', ['Basil', 'Thyme', 'Sage', 'Parsley'], 'Four herbs grown for their leaves.'),
+      g(2, 'Pasta shapes', ['Penne', 'Fusilli', 'Farfalle', 'Orzo'], 'Quills, spirals, bow-ties and rice-shaped pasta.'),
+      g(3, '___BREAD', ['Ginger', 'Short', 'Sweet', 'Corn'], 'Gingerbread, shortbread, sweetbread and cornbread.'),
+      g(4, 'Hidden numbers', ['Often', 'Phone', 'Weight', 'Canine'], 'ofTEN hides TEN, phONE hides ONE, wEIGHT hides EIGHT and caNINE hides NINE.'),
+    ],
+    herring: 'GINGER sits in the spice rack, but it is not a leafy herb: it belongs to GINGERBREAD.',
+  },
+  {
+    id: 'web-011',
+    title: 'Starry night',
+    groups: [
+      g(1, 'Planets', ['Venus', 'Mercury', 'Saturn', 'Jupiter'], 'Four planets of our solar system.'),
+      g(2, 'Noble gases', ['Neon', 'Argon', 'Xenon', 'Krypton'], 'Unreactive gases in group 18 of the periodic table.'),
+      g(3, 'STAR___', ['Fish', 'Board', 'Dust', 'Ling'], 'Starfish, starboard, stardust and starling.'),
+      g(4, 'Hidden metals', ['Marigold', 'Destiny', 'Mislead', 'Irony'], 'mariGOLD hides GOLD, desTINy hides TIN, misLEAD hides LEAD and IRONy hides IRON.'),
+    ],
+    herring: 'MERCURY is a metal and an element, but it is neither a noble gas nor hidden: here it is a planet.',
+  },
+  {
+    id: 'web-012',
+    title: 'Sports day',
+    groups: [
+      g(1, 'Racket sports', ['Tennis', 'Badminton', 'Squash', 'Padel'], 'All four are played with rackets.'),
+      g(2, 'Golf scores', ['Birdie', 'Bogey', 'Eagle', 'Albatross'], 'One under, one over, two under and three under par.'),
+      g(3, 'EYE___', ['Lash', 'Brow', 'Sore', 'Lid'], 'Eyelash, eyebrow, eyesore and eyelid.'),
+      g(4, 'Anagrams of sports', ['Loop', 'Flog', 'Blows', 'Glue'], 'LOOP = POLO, FLOG = GOLF, BLOWS = BOWLS, GLUE = LUGE.'),
+    ],
+    herring: 'BIRDIE, EAGLE and ALBATROSS look like a bird group, but they are golf scores. SQUASH is also a vegetable.',
+  },
+  {
+    id: 'web-013',
+    title: 'Paint box',
+    groups: [
+      g(1, 'Shades of blue', ['Navy', 'Azure', 'Cobalt', 'Cyan'], 'Dark, sky, deep and greenish blues.'),
+      g(2, 'Art movements', ['Cubism', 'Fauvism', 'Dada', 'Surrealism'], 'Early twentieth-century movements in modern art.'),
+      g(3, '___BRUSH', ['Tooth', 'Hair', 'Nail', 'Under'], 'Toothbrush, hairbrush, nailbrush and underbrush.'),
+      g(4, 'Hidden colours', ['Stand', 'Credit', 'Prose', 'Plumber'], 'sTANd hides TAN, cREDit hides RED, pROSE hides ROSE and PLUMber hides PLUM.'),
+    ],
+    herring: 'COBALT is also a metal and NAVY a fleet, but both are blues here.',
+  },
+  {
+    id: 'web-014',
+    title: 'Animal kingdom',
+    groups: [
+      g(1, 'Big cats', ['Lion', 'Tiger', 'Leopard', 'Cheetah'], 'Four large wild cats.'),
+      g(2, 'Collective nouns', ['Pride', 'Murder', 'Parliament', 'Gaggle'], 'A pride of lions, a murder of crows, a parliament of owls and a gaggle of geese.'),
+      g(3, 'Animals that are also verbs', ['Ferret', 'Hound', 'Wolf', 'Duck'], 'To ferret out, to hound someone, to wolf food down and to duck a punch.'),
+      g(4, 'Lose the first letter to find an animal', ['Pant', 'Heel', 'Tram', 'Tape'], 'P-ANT, H-EEL, T-RAM and T-APE.'),
+    ],
+    herring: 'PRIDE belongs to lions, but here it is a collective noun alongside MURDER and PARLIAMENT.',
+  },
+  {
+    id: 'web-015',
+    title: 'Library',
+    groups: [
+      g(1, 'Punctuation marks', ['Comma', 'Colon', 'Hyphen', 'Semicolon'], 'Four marks of punctuation.'),
+      g(2, 'Parts of a book', ['Index', 'Preface', 'Appendix', 'Glossary'], 'Sections found at the front or back of a book.'),
+      g(3, 'BOOK___', ['Worm', 'Mark', 'Case', 'Keeper'], 'Bookworm, bookmark, bookcase and bookkeeper.'),
+      g(4, 'Silent first letter', ['Knight', 'Gnome', 'Wrist', 'Psalm'], 'The K, G, W and P are not pronounced.'),
+    ],
+    herring: 'COLON, APPENDIX and WRIST are all body parts, but they are split across punctuation, books and silent letters.',
+  },
+  {
+    id: 'web-016',
+    title: 'Coffee break',
+    groups: [
+      g(1, 'Coffee drinks', ['Espresso', 'Latte', 'Mocha', 'Macchiato'], 'Four orders at an espresso bar.'),
+      g(2, 'Bakery treats', ['Scone', 'Muffin', 'Brownie', 'Eclair'], 'Baked goods to go with a coffee.'),
+      g(3, '___BEAN', ['Jelly', 'Broad', 'Runner', 'Soy'], 'Jelly bean, broad bean, runner bean and soybean.'),
+      g(4, 'Hidden TEA', ['Steak', 'Teach', 'Stealth', 'Instead'], 'sTEAk, TEAch, sTEAlth and insTEAd all hide TEA.'),
+    ],
+    herring: 'JELLY sounds like a treat for the bakery group, but it belongs with JELLY BEAN.',
+  },
+  {
+    id: 'web-017',
+    title: 'Treasure chest',
+    groups: [
+      g(1, 'Gemstones', ['Emerald', 'Sapphire', 'Topaz', 'Opal'], 'Four precious and semi-precious stones.'),
+      g(2, 'Old coins', ['Doubloon', 'Ducat', 'Florin', 'Guinea'], 'Historic coins of Spain, Venice, Florence and Britain.'),
+      g(3, '___STONE', ['Mile', 'Lime', 'Cobble', 'Grave'], 'Milestone, limestone, cobblestone and gravestone.'),
+      g(4, 'Sound like treasure', ['Purl', 'Horde', 'Guilt', 'Carrot'], 'PURL sounds like pearl, HORDE like hoard, GUILT like gilt and CARROT like carat.'),
+    ],
+    herring: 'GUINEA is also a country and LIME a fruit, but here they are a coin and a ___STONE.',
+  },
+  {
+    id: 'web-018',
+    title: 'Under the sea',
+    groups: [
+      g(1, 'Sharks', ['Hammerhead', 'Mako', 'Nurse', 'Thresher'], 'Four kinds of shark.'),
+      g(2, 'Creatures with tentacles', ['Squid', 'Octopus', 'Nautilus', 'Anemone'], 'All four catch food with tentacles.'),
+      g(3, '___FISH', ['Sword', 'Cat', 'Monk', 'Gold'], 'Swordfish, catfish, monkfish and goldfish.'),
+      g(4, 'Hidden sea creatures', ['Steel', 'Decode', 'Betray', 'Scrabble'], 'stEEL hides EEL, deCODe hides COD, betRAY hides RAY and sCRABble hides CRAB.'),
+    ],
+    herring: 'NURSE sounds like a job and HAMMERHEAD like a tool, but both are sharks.',
+  },
+  {
+    id: 'web-019',
+    title: 'Time keeper',
+    groups: [
+      g(1, '___ Age', ['Stone', 'Bronze', 'Iron', 'Ice'], 'The Stone Age, Bronze Age, Iron Age and Ice Age.'),
+      g(2, 'Parts of a clock or watch', ['Dial', 'Pendulum', 'Escapement', 'Bezel'], 'The face, the swinging weight, the ticking mechanism that releases energy in steps, and the ring around the glass.'),
+      g(3, '___GLASS', ['Spy', 'Eye', 'Wine', 'Hour'], 'Spyglass, eyeglass, wineglass and hourglass.'),
+      g(4, 'Hidden ERA', ['Camera', 'Opera', 'Generate', 'Federal'], 'camERA, opERA, genERAte and fedERAl all hide ERA.'),
+    ],
+    herring: 'HOUR fits the timekeeping theme, but it is not a clock part: it belongs to HOURGLASS.',
+  },
+  {
+    id: 'web-020',
+    title: 'Fairground',
+    groups: [
+      g(1, 'Circus performers', ['Clown', 'Acrobat', 'Juggler', 'Ringmaster'], 'Four people you might see in the big top.'),
+      g(2, 'Card games', ['Whist', 'Poker', 'Rummy', 'Bridge'], 'Games played with a deck of cards.'),
+      g(3, '___RING', ['Ear', 'Key', 'Boxing', 'Signet'], 'Earring, key ring, boxing ring and signet ring.'),
+      g(4, 'Things with a bridge', ['Ship', 'Violin', 'Spectacles', 'Guitar'], 'A ship is commanded from its bridge, violins and guitars have a bridge supporting the strings, and spectacles have a bridge over the nose.'),
+    ],
+    herring: 'BRIDGE is a card game, but it is also something SHIP, VIOLIN, GUITAR and SPECTACLES all have. RINGMASTER contains RING but is a performer.',
+  },
+  {
+    id: 'web-021',
+    title: 'Rock solid',
+    groups: [
+      g(1, 'Types of rock', ['Granite', 'Basalt', 'Marble', 'Shale'], 'Two igneous, one metamorphic and one sedimentary rock.'),
+      g(2, 'Volcano words', ['Lava', 'Magma', 'Crater', 'Caldera'], 'Molten rock above and below ground, and the hollows at the summit.'),
+      g(3, '___SLIDE', ['Land', 'Mud', 'Water', 'Rock'], 'Landslide, mudslide, waterslide and rockslide.'),
+      g(4, 'Hidden ORE', ['Forest', 'Adore', 'Score', 'Explore'], 'fORESt, adORE, scORE and explORE all hide ORE.'),
+    ],
+    herring: 'ROCK looks as if it belongs with the rock types, but it is not a type of rock: it makes ROCKSLIDE.',
+  },
+  {
+    id: 'web-022',
+    title: 'Greenhouse',
+    groups: [
+      g(1, 'Root vegetables', ['Turnip', 'Parsnip', 'Radish', 'Swede'], 'Vegetables grown for their swollen roots.'),
+      g(2, 'Leafy greens', ['Kale', 'Spinach', 'Chard', 'Rocket'], 'Vegetables grown for their leaves.'),
+      g(3, '___PATCH', ['Bald', 'Nicotine', 'Purple', 'Elbow'], 'Bald patch, nicotine patch, purple patch and elbow patch.'),
+      g(4, 'Hidden vegetables', ['Appeal', 'Scorn', 'Beanie', 'Beetle'], 'apPEAl hides PEA, sCORN hides CORN, BEANie hides BEAN and BEETle hides BEET.'),
+    ],
+    herring: 'ROCKET sounds like space travel and SWEDE like a nationality, but both are vegetables.',
+  },
+  {
+    id: 'web-023',
+    title: 'Word workshop',
+    groups: [
+      g(1, 'Parts of speech', ['Noun', 'Verb', 'Adjective', 'Adverb'], 'Four word classes of grammar.'),
+      g(2, 'Figures of speech', ['Simile', 'Metaphor', 'Irony', 'Hyperbole'], 'Rhetorical devices: comparison, substitution, saying the opposite and exaggeration.'),
+      g(3, '___WORD', ['Pass', 'Cross', 'Buzz', 'Fore'], 'Password, crossword, buzzword and foreword.'),
+      g(4, 'Palindromes', ['Kayak', 'Radar', 'Civic', 'Rotor'], 'Each reads the same forwards and backwards.'),
+    ],
+    herring: 'PASS and CROSS look like verbs for the grammar group, but they are ___WORD compounds.',
+  },
+  {
+    id: 'web-024',
+    title: 'On the farm',
+    groups: [
+      g(1, 'Young animals', ['Kid', 'Foal', 'Lamb', 'Calf'], 'A young goat, horse, sheep and cow.'),
+      g(2, 'Farm buildings', ['Silo', 'Granary', 'Shed', 'Dairy'], 'Buildings for storing silage, grain and tools, and for handling milk.'),
+      g(3, '___YARD', ['Vine', 'Grave', 'Church', 'Back'], 'Vineyard, graveyard, churchyard and backyard.'),
+      g(4, 'Sound like farm words', ['Yew', 'Bore', 'Heard', 'Hoarse'], 'YEW sounds like ewe, BORE like boar, HEARD like herd and HOARSE like horse.'),
+    ],
+    herring: 'YEW is the classic churchyard tree, but it belongs with the homophones. KID and CALF have human meanings, but here they are young animals.',
+  },
+  {
+    id: 'web-025',
+    title: 'Royal court',
+    groups: [
+      g(1, 'Chess pieces', ['Rook', 'Pawn', 'Bishop', 'Knight'], 'Four of the six chess pieces.'),
+      g(2, 'Ranks of the peerage', ['Duke', 'Earl', 'Viscount', 'Marquess'], 'Hereditary ranks of the British peerage (a knight is not a peer).'),
+      g(3, 'KING___', ['Fisher', 'Dom', 'Pin', 'Size'], 'Kingfisher, kingdom, kingpin and king-size.'),
+      g(4, 'Sound like royal words', ['Air', 'Thrown', 'Prints', 'Barren'], 'AIR sounds like heir, THROWN like throne, PRINTS like prince and BARREN like baron.'),
+    ],
+    herring: 'BARREN sounds like a noble title (baron), but it is a homophone. KNIGHT and BISHOP sound courtly but are chess pieces.',
+  },
+  {
+    id: 'web-026',
+    title: 'Fruit bowl',
+    groups: [
+      g(1, 'Citrus fruits', ['Lemon', 'Satsuma', 'Kumquat', 'Clementine'], 'Four members of the citrus family.'),
+      g(2, 'Stone fruits', ['Plum', 'Peach', 'Apricot', 'Cherry'], 'Each has a single hard stone at its centre.'),
+      g(3, '___ APPLE', ['Pine', 'Crab', 'Toffee', 'Custard'], 'Pineapple, crab apple, toffee apple and custard apple.'),
+      g(4, 'Hidden fruits', ['Update', 'Appear', 'Sublime', 'Figure'], 'upDATE hides DATE, apPEAR hides PEAR, subLIME hides LIME and FIGure hides FIG.'),
+    ],
+    herring: 'PINE and CRAB look like nature words, but they are ___ APPLE fruits. CUSTARD APPLE is a real fruit too.',
+  },
+  {
+    id: 'web-027',
+    title: 'Dinner party',
+    groups: [
+      g(1, 'Cheeses', ['Brie', 'Gouda', 'Cheddar', 'Halloumi'], 'Cheeses from France, the Netherlands, England and Cyprus.'),
+      g(2, 'Wine-tasting words', ['Vintage', 'Tannin', 'Bouquet', 'Terroir'], 'The year, the dry grip, the aroma and the sense of place.'),
+      g(3, '___CLOTH', ['Table', 'Dish', 'Loin', 'Oil'], 'Tablecloth, dishcloth, loincloth and oilcloth.'),
+      g(4, 'Drinks hidden in longer words', ['Begin', 'Drum', 'Forsake', 'Meadow'], 'beGIN hides GIN, dRUM hides RUM, forSAKE hides SAKE and MEADow hides MEAD.'),
+    ],
+    herring: 'BOUQUET sounds like flowers on the table, but it is a wine-tasting term for aroma.',
+  },
+  {
+    id: 'web-028',
+    title: 'Wardrobe',
+    groups: [
+      g(1, 'Fabrics', ['Silk', 'Denim', 'Velvet', 'Linen'], 'Four cloths used in clothing.'),
+      g(2, 'Hats', ['Beret', 'Fedora', 'Bowler', 'Trilby'], 'Four styles of hat.'),
+      g(3, '___COAT', ['Waist', 'Over', 'Turn', 'Rain'], 'Waistcoat, overcoat, turncoat and raincoat.'),
+      g(4, 'Hidden clothing', ['Socket', 'Harvest', 'Probe', 'Shatter'], 'SOCKet hides SOCK, harVEST hides VEST, pROBE hides ROBE and sHATter hides HAT.'),
+    ],
+    herring: 'BOWLER could be a cricketer, but here it is a hat. SHATTER hides a HAT, but it is not a hat itself.',
+  },
+  {
+    id: 'web-029',
+    title: 'Classroom',
+    groups: [
+      g(1, 'In a pencil case', ['Ruler', 'Eraser', 'Pencil', 'Sharpener'], 'Four things a pupil keeps in a pencil case.'),
+      g(2, 'Branches of maths', ['Algebra', 'Geometry', 'Calculus', 'Statistics'], 'Four fields of mathematics.'),
+      g(3, '___BOARD', ['Dart', 'Key', 'Card', 'Skate'], 'Dartboard, keyboard, cardboard and skateboard.'),
+      g(4, 'Anagrams of school words', ['Cheat', 'Raged', 'Onset', 'Dusty'], 'CHEAT = TEACH, RAGED = GRADE, ONSET = NOTES, DUSTY = STUDY.'),
+    ],
+    herring: 'RULER could be a monarch and CALCULUS a dental deposit, but they sit in the pencil case and maths.',
+  },
+  {
+    id: 'web-030',
+    title: 'Ancient world',
+    groups: [
+      g(1, 'Greek letters', ['Lambda', 'Delta', 'Sigma', 'Omega'], 'Four letters of the Greek alphabet.'),
+      g(2, 'Greek gods', ['Zeus', 'Apollo', 'Athena', 'Hermes'], 'Four of the Olympian gods.'),
+      g(3, '___RAY', ['Death', 'Sting', 'Manta', 'Sun'], 'Death ray, stingray, manta ray and sunray.'),
+      g(4, 'Hidden Greek letters', ['Rhombus', 'Taunt', 'Metal', 'Chimney'], 'RHOmbus hides RHO, TAUnt hides TAU, mETAl hides ETA and CHImney hides CHI.'),
+    ],
+    herring: 'RHOMBUS sounds like geometry and DELTA like a river mouth, but one hides RHO and the other is a letter.',
+  },
+  {
+    id: 'web-031',
+    title: 'Mountain pass',
+    groups: [
+      g(1, 'Mountain ranges', ['Alps', 'Andes', 'Pyrenees', 'Urals'], 'Ranges in Europe, South America, France and Spain, and Russia.'),
+      g(2, 'Climbing gear', ['Harness', 'Carabiner', 'Crampon', 'Piton'], 'Kit for roped climbing and ice.'),
+      g(3, '___CAP', ['Knee', 'Night', 'Toe', 'Snow'], 'Kneecap, nightcap, toecap and snowcap.'),
+      g(4, 'Sound like hillwalking words', ['Peek', 'Clime', 'Veil', 'Tore'], 'PEEK sounds like peak, CLIME like climb, VEIL like vale and TORE like tor (a rocky hilltop).'),
+    ],
+    herring: 'KNEE and TOE look like body parts, but there are only two: they join NIGHT and SNOW as ___CAP words.',
+  },
+  {
+    id: 'web-032',
+    title: 'Bird table',
+    groups: [
+      g(1, 'Garden birds', ['Robin', 'Sparrow', 'Wren', 'Finch'], 'Small birds common at garden feeders.'),
+      g(2, 'Birds of prey', ['Kestrel', 'Falcon', 'Buzzard', 'Osprey'], 'Hunting birds with hooked beaks and talons.'),
+      g(3, 'Birds that are also verbs', ['Duck', 'Crane', 'Grouse', 'Quail'], 'To duck a blow, crane your neck, grouse (complain) and quail (cower).'),
+      g(4, 'Hidden birds', ['Lantern', 'Crowd', 'Howl', 'Lemur'], 'lanTERN hides TERN, CROWd hides CROW, hOWL hides OWL and lEMUr hides EMU.'),
+    ],
+    herring: 'LEMUR is an animal and HOWL an animal sound, but both are hiding birds (EMU and OWL).',
+  },
+  {
+    id: 'web-033',
+    title: 'Playtime',
+    groups: [
+      g(1, 'Playground equipment', ['Swing', 'Slide', 'Seesaw', 'Roundabout'], 'Four fixtures of a children’s playground.'),
+      g(2, 'Things with strings', ['Puppet', 'Kite', 'Yo-yo', 'Banjo'], 'Each depends on its strings to work.'),
+      g(3, '___HOUSE', ['Doll', 'Green', 'Light', 'Ware'], 'Dollhouse, greenhouse, lighthouse and warehouse.'),
+      g(4, 'Hidden toys', ['Ballot', 'Strain', 'Scarf', 'Laptop'], 'BALLot hides BALL, sTRAIN hides TRAIN, sCARf hides CAR and lapTOP hides TOP.'),
+    ],
+    herring: 'DOLL, KITE and YO-YO all look like a toy group, but DOLL makes DOLLHOUSE and the others have strings.',
+  },
+  {
+    id: 'web-034',
+    title: 'Engine room',
+    groups: [
+      g(1, 'SI units named after scientists', ['Watt', 'Kelvin', 'Pascal', 'Joule'], 'Units of power, temperature, pressure and energy, named after James Watt, Lord Kelvin, Blaise Pascal and James Joule.'),
+      g(2, 'Simple machines', ['Pulley', 'Wedge', 'Screw', 'Lever'], 'Four of the six classical simple machines.'),
+      g(3, '___POWER', ['Horse', 'Man', 'Will', 'Super'], 'Horsepower, manpower, willpower and superpower.'),
+      g(4, 'Hidden units', ['Revolt', 'Champion', 'Energy', 'Deluxe'], 'reVOLT hides VOLT, chAMPion hides AMP, enERGy hides ERG and deLUXe hides LUX.'),
+    ],
+    herring: 'WATT measures power, but the ___POWER words are HORSE, MAN, WILL and SUPER.',
+  },
+  {
+    id: 'web-035',
+    title: 'Street food',
+    groups: [
+      g(1, 'Breads', ['Naan', 'Pitta', 'Bagel', 'Brioche'], 'Breads from India, the Eastern Mediterranean, Jewish baking and France.'),
+      g(2, 'Japanese foods', ['Ramen', 'Tempura', 'Miso', 'Udon'], 'Noodle soup, battered fry, fermented paste and thick noodles.'),
+      g(3, '___ ROLL', ['Spring', 'Egg', 'Sausage', 'Drum'], 'Spring roll, egg roll, sausage roll and drumroll.'),
+      g(4, 'Anagrams of foods', ['Cheap', 'Reap', 'Coat', 'Skate'], 'CHEAP = PEACH, REAP = PEAR, COAT = TACO, SKATE = STEAK.'),
+    ],
+    herring: 'SKATE is a fish you might eat, but here it is an anagram of STEAK. EGG and SAUSAGE are foods too, yet both belong to ___ ROLL.',
+  },
+  {
+    id: 'web-036',
+    title: 'Desert island',
+    groups: [
+      g(1, 'Desert mammals', ['Camel', 'Meerkat', 'Jerboa', 'Oryx'], 'Mammals adapted to life in deserts.'),
+      g(2, 'Deserts', ['Sahara', 'Gobi', 'Kalahari', 'Atacama'], 'Deserts of North Africa, Mongolia and China, southern Africa, and Chile.'),
+      g(3, 'SUN___', ['Flower', 'Dial', 'Burn', 'Glasses'], 'Sunflower, sundial, sunburn and sunglasses.'),
+      g(4, 'Hidden star signs', ['Library', 'Diaries', 'Scorpion', 'Chameleon'], 'LIBRAry hides LIBRA, diARIES hides ARIES, SCORPIOn hides SCORPIO and chameLEOn hides LEO.'),
+    ],
+    herring: 'SCORPION and CHAMELEON are desert creatures, but not mammals: they hide SCORPIO and LEO.',
+  },
+  {
+    id: 'web-037',
+    title: 'Concert hall',
+    groups: [
+      g(1, 'Brass instruments', ['Trumpet', 'Trombone', 'Tuba', 'Bugle'], 'Four instruments you play by buzzing your lips.'),
+      g(2, 'Singing voices', ['Soprano', 'Alto', 'Tenor', 'Treble'], 'Singing voice types; a treble is a boy’s high voice.'),
+      g(3, '___BAND', ['Rubber', 'Head', 'Arm', 'Broad'], 'Rubber band, headband, armband and broadband.'),
+      g(4, 'Hidden instruments', ['Sharp', 'Absolute', 'Rebuke', 'Thorn'], 'sHARP hides HARP, absoLUTE hides LUTE, rebUKE hides UKE and tHORN hides HORN.'),
+    ],
+    herring: 'SHARP looks like musical notation, but it is hiding a HARP.',
+  },
+  {
+    id: 'web-038',
+    title: 'Gym class',
+    groups: [
+      g(1, 'Muscles', ['Biceps', 'Triceps', 'Deltoid', 'Pectoral'], 'Muscles of the upper arm, shoulder and chest.'),
+      g(2, 'Yoga poses', ['Warrior', 'Cobra', 'Lotus', 'Bridge'], 'Four classic yoga postures.'),
+      g(3, '___BELL', ['Dumb', 'Kettle', 'Door', 'Blue'], 'Dumbbell, kettlebell, doorbell and bluebell.'),
+      g(4, 'PULL ___ (idioms)', ['Strings', 'Rank', 'Punches', 'Weight'], 'To pull strings, pull rank, pull your punches and pull your weight.'),
+    ],
+    herring: 'COBRA and LOTUS sound like nature words, but they are yoga poses. WEIGHT sounds like the gym, but it is an idiom.',
+  },
+  {
+    id: 'web-039',
+    title: 'Code breakers',
+    groups: [
+      g(1, 'NATO phonetic alphabet', ['Echo', 'Hotel', 'Sierra', 'Golf'], 'The code words for E, H, S and G.'),
+      g(2, 'Ballroom dances', ['Waltz', 'Rumba', 'Samba', 'Quickstep'], 'Four dances of the ballroom floor.'),
+      g(3, '___CODE', ['Source', 'Bar', 'Dress', 'Area'], 'Source code, barcode, dress code and area code.'),
+      g(4, 'Letters in alphabetical order', ['Almost', 'Biopsy', 'Chintz', 'Ghost'], 'A-L-M-O-S-T, B-I-O-P-S-Y, C-H-I-N-T-Z and G-H-O-S-T each run in alphabetical order.'),
+    ],
+    herring: 'GOLF looks like a sport and HOTEL a building, but both are NATO code words.',
+  },
+  {
+    id: 'web-040',
+    title: 'Bakery',
+    groups: [
+      g(1, 'Cereal grains', ['Wheat', 'Barley', 'Rye', 'Millet'], 'Four grains grown for flour and food.'),
+      g(2, 'Types of pastry', ['Choux', 'Filo', 'Puff', 'Shortcrust'], 'Four classic pastries.'),
+      g(3, '___ PIN', ['Hair', 'Safety', 'Rolling', 'Drawing'], 'Hairpin, safety pin, rolling pin and drawing pin.'),
+      g(4, 'Sound like baking words', ['Need', 'Doe', 'Bred', 'Role'], 'NEED sounds like knead, DOE like dough, BRED like bread and ROLE like roll.'),
+    ],
+    herring: 'ROLLING suggests rolling out dough, but it belongs with ROLLING PIN. CHOUX sounds like shoe.',
+  },
+  {
+    id: 'web-041',
+    title: 'Rainforest',
+    groups: [
+      g(1, 'Tropical birds', ['Toucan', 'Macaw', 'Hornbill', 'Quetzal'], 'Colourful birds of tropical forests.'),
+      g(2, 'Deadly sins', ['Sloth', 'Envy', 'Greed', 'Wrath'], 'Four of the seven deadly sins.'),
+      g(3, '___WOOD', ['Ply', 'Drift', 'Fire', 'Sandal'], 'Plywood, driftwood, firewood and sandalwood.'),
+      g(4, 'Three consecutive letters of the alphabet', ['Canopy', 'Hijack', 'Defy', 'Stuck'], 'caNOPy contains N-O-P, HIJack contains H-I-J, DEFy contains D-E-F and STUck contains S-T-U.'),
+    ],
+    herring: 'SLOTH lives in the rainforest and CANOPY is its roof, but SLOTH is a sin and CANOPY hides N-O-P.',
+  },
+  {
+    id: 'web-042',
+    title: 'Metro map',
+    groups: [
+      g(1, 'Vehicles', ['Ferry', 'Coach', 'Scooter', 'Truck'], 'Four vehicles for road or water.'),
+      g(2, 'Parts of a bicycle', ['Pedal', 'Spoke', 'Saddle', 'Gear'], 'Four parts found on a bike.'),
+      g(3, '___WAY', ['Run', 'Gang', 'Gate', 'High'], 'Runway, gangway, gateway and highway.'),
+      g(4, 'Hidden vehicles', ['Business', 'Cabin', 'Vanish', 'Cartoon'], 'BUSiness hides BUS, CABin hides CAB, VANish hides VAN and CARToon hides CART.'),
+    ],
+    herring: 'SPOKE looks like a verb and CABIN like part of a plane, but one is a bicycle part and the other hides CAB.',
+  },
+  {
+    id: 'web-043',
+    title: 'Sweet shop',
+    groups: [
+      g(1, 'Nuts', ['Almond', 'Cashew', 'Pecan', 'Pistachio'], 'Four nuts from the baking aisle.'),
+      g(2, 'Types of sugar', ['Caster', 'Icing', 'Brown', 'Demerara'], 'Fine, powdered, molasses-rich and coarse golden sugars.'),
+      g(3, '___NUT', ['Dough', 'Coco', 'Pea', 'Wing'], 'Doughnut, coconut, peanut and wingnut.'),
+      g(4, 'Sound like desserts', ['Moose', 'Sunday', 'Pi', 'Tort'], 'MOOSE sounds like mousse, SUNDAY like sundae, PI like pie and TORT like torte.'),
+    ],
+    herring: 'PEA and DOUGH look like they belong with the nuts, but they are parts of PEANUT and DOUGHNUT.',
+  },
+  {
+    id: 'web-044',
+    title: 'Snow day',
+    groups: [
+      g(1, 'Winter sports', ['Skiing', 'Luge', 'Curling', 'Biathlon'], 'Four events of the Winter Olympics.'),
+      g(2, 'Wintry weather', ['Sleet', 'Slush', 'Frost', 'Hail'], 'Icy forms of weather.'),
+      g(3, 'SNOW___', ['Flake', 'Drop', 'Plough', 'Shoe'], 'Snowflake, snowdrop, snowplough and snowshoe.'),
+      g(4, 'Hidden ICE', ['Justice', 'Novice', 'Licence', 'Notice'], 'justICE, novICE, notICE and lICEnce all contain ICE.'),
+    ],
+    herring: 'CURLING sounds like a hairstyle and HAIL like a greeting, but one is a sport and the other weather.',
+  },
+  {
+    id: 'web-045',
+    title: 'Office hours',
+    groups: [
+      g(1, 'Office machines', ['Printer', 'Scanner', 'Shredder', 'Photocopier'], 'Four machines in a typical office.'),
+      g(2, 'Keyboard keys', ['Delete', 'Escape', 'Tab', 'Return'], 'Keys found on a computer keyboard.'),
+      g(3, '___WORK', ['Team', 'Net', 'Frame', 'Clock'], 'Teamwork, network, framework and clockwork.'),
+      g(4, 'Start with a body part', ['Earnest', 'Legend', 'Handsome', 'Hipster'], 'EARnest begins with EAR, LEGend with LEG, HANDsome with HAND and HIPster with HIP.'),
+    ],
+    herring: 'ESCAPE sounds like a getaway and TAB like a bar bill, but both are keyboard keys.',
+  },
+  {
+    id: 'web-046',
+    title: 'Body of water',
+    groups: [
+      g(1, 'Bodies of water', ['Lake', 'Pond', 'Lagoon', 'Fjord'], 'Four kinds of water body.'),
+      g(2, 'The ___ Sea', ['Baltic', 'Caspian', 'Coral', 'Red'], 'The Baltic, Caspian, Coral and Red Seas.'),
+      g(3, '___FALL', ['Water', 'Night', 'Foot', 'Land'], 'Waterfall, nightfall, footfall and landfall.'),
+      g(4, 'Sound like watery words', ['Creak', 'Straight', 'Tied', 'Currant'], 'CREAK sounds like creek, STRAIGHT like strait, TIED like tide and CURRANT like current.'),
+    ],
+    herring: 'CORAL looks like reef life and WATER like a body of water, but they belong to THE ___ SEA and ___FALL.',
+  },
+  {
+    id: 'web-047',
+    title: 'Art class',
+    groups: [
+      g(1, 'Drawing and painting media', ['Charcoal', 'Pastel', 'Gouache', 'Crayon'], 'Materials artists draw or paint with.'),
+      g(2, 'In the artist’s studio', ['Easel', 'Palette', 'Canvas', 'Smock'], 'The stand, the mixing board, the surface and the protective overall.'),
+      g(3, '___PIECE', ['Master', 'Mouth', 'Centre', 'Time'], 'Masterpiece, mouthpiece, centrepiece and timepiece.'),
+      g(4, 'Sound like art words', ['Palate', 'Hew', 'Die', 'Freeze'], 'PALATE sounds like palette, HEW like hue, DIE like dye and FREEZE like frieze.'),
+    ],
+    herring: 'PALATE sounds like PALETTE and sits in the MOUTH, but it is a homophone, not a ___PIECE.',
+  },
+  {
+    id: 'web-048',
+    title: 'Detective story',
+    groups: [
+      g(1, 'Whodunnit essentials', ['Clue', 'Motive', 'Alibi', 'Witness'], 'Things a detective weighs when solving a case.'),
+      g(2, 'Card suits', ['Spade', 'Club', 'Heart', 'Diamond'], 'The four suits of a standard deck.'),
+      g(3, '___PRINT', ['Finger', 'Blue', 'Thumb', 'News'], 'Fingerprint, blueprint, thumbprint and newsprint.'),
+      g(4, 'Anagrams of detective words', ['Hustle', 'Rarest', 'Loves', 'Trail'], 'HUSTLE = SLEUTH, RAREST = ARREST, LOVES = SOLVE, TRAIL = TRIAL.'),
+    ],
+    herring: 'TRAIL sounds like what a detective follows, and FINGER like evidence, but one is an anagram of TRIAL and the other a ___PRINT.',
+  },
+  {
+    id: 'web-049',
+    title: 'Bookshelf',
+    groups: [
+      g(1, 'Fiction genres', ['Fantasy', 'Romance', 'Thriller', 'Horror'], 'Four shelves in a bookshop.'),
+      g(2, 'Poetic forms', ['Sonnet', 'Haiku', 'Limerick', 'Ballad'], 'Fourteen lines, three lines, five comic lines and a narrative song.'),
+      g(3, '___WORM', ['Earth', 'Glow', 'Tape', 'Silk'], 'Earthworm, glow-worm, tapeworm and silkworm.'),
+      g(4, 'Hidden literary forms', ['Universe', 'Episode', 'Epicentre', 'Sagacity'], 'uniVERSE hides VERSE, episODE hides ODE, EPICentre hides EPIC and SAGAcity hides SAGA.'),
+    ],
+    herring: 'LIMERICK is also an Irish city, but here it is a five-line poem.',
+  },
+  {
+    id: 'web-050',
+    title: 'Spice route',
+    groups: [
+      g(1, 'Spices', ['Cumin', 'Turmeric', 'Nutmeg', 'Cardamom'], 'Four spices of the spice rack.'),
+      g(2, 'Chilli peppers', ['Jalapeno', 'Habanero', 'Poblano', 'Serrano'], 'Four varieties of chilli pepper.'),
+      g(3, 'HOT ___', ['Potato', 'Seat', 'Spring', 'Rod'], 'A hot potato, a hot seat, a hot spring and a hot rod.'),
+      g(4, 'Anagrams of seasonings', ['Came', 'Ages', 'Bails', 'Last'], 'CAME = MACE, AGES = SAGE, BAILS = BASIL, LAST = SALT.'),
+    ],
+    herring: 'BAILS sounds like cricket, but it is BASIL rearranged. The chillies are hot, but only POTATO, SEAT, SPRING and ROD complete HOT ___.',
+  },
+  {
+    id: 'web-051',
+    title: 'Night at the theatre',
+    groups: [
+      g(1, 'Parts of a theatre', ['Stalls', 'Wings', 'Foyer', 'Balcony'], 'Where actors wait offstage, and where audiences gather and sit.'),
+      g(2, 'Shakespeare title characters', ['Hamlet', 'Macbeth', 'Othello', 'Lear'], 'Each gives his name to a Shakespeare tragedy.'),
+      g(3, '___PLAY', ['Role', 'Screen', 'Word', 'Down'], 'Role-play, screenplay, wordplay and downplay.'),
+      g(4, 'Sound like theatre words', ['Queue', 'Seen', 'Isle', 'Bough'], 'QUEUE sounds like cue, SEEN like scene, ISLE like aisle and BOUGH like bow.'),
+    ],
+    herring: 'HAMLET is also a small village and WINGS belong to birds, but here they are theatre words.',
+  },
+  {
+    id: 'web-052',
+    title: 'Geometry lesson',
+    groups: [
+      g(1, 'Polygons', ['Hexagon', 'Pentagon', 'Octagon', 'Trapezium'], 'Flat shapes with six, five, eight and four straight sides.'),
+      g(2, 'Types of angle', ['Acute', 'Obtuse', 'Reflex', 'Right'], 'Less than 90°, between 90° and 180°, more than 180°, and exactly 90°.'),
+      g(3, 'SQUARE ___', ['Meal', 'Dance', 'Root', 'Peg'], 'A square meal, square dance, square root and square peg.'),
+      g(4, 'Anagrams of geometry words', ['Once', 'Glean', 'Cafe', 'Escort'], 'ONCE = CONE, GLEAN = ANGLE, CAFE = FACE, ESCORT = SECTOR.'),
+    ],
+    herring: 'RIGHT and REFLEX have everyday meanings, but here they are angles. ROOT sounds mathematical, but it is a SQUARE ___.',
+  },
+  {
+    id: 'web-053',
+    title: 'Forest floor',
+    groups: [
+      g(1, 'Edible mushrooms', ['Chanterelle', 'Porcini', 'Morel', 'Shiitake'], 'Four prized edible fungi.'),
+      g(2, 'Conifers', ['Spruce', 'Cedar', 'Juniper', 'Hemlock'], 'Cone-bearing evergreen trees and shrubs.'),
+      g(3, '___STOOL', ['Toad', 'Bar', 'Foot', 'Piano'], 'Toadstool, bar stool, footstool and piano stool.'),
+      g(4, 'Drop the first letter for a new word', ['Bramble', 'Bark', 'Twig', 'Branch'], 'B-RAMBLE, B-ARK, T-WIG and B-RANCH.'),
+    ],
+    herring: 'TOAD makes TOADSTOOL, which sounds like a mushroom, but it is a ___STOOL word. HEMLOCK is also a poison plant.',
+  },
+  {
+    id: 'web-054',
+    title: 'Ship shape',
+    groups: [
+      g(1, 'Boats', ['Canoe', 'Yacht', 'Dinghy', 'Barge'], 'Four kinds of boat.'),
+      g(2, 'Nautical positions', ['Port', 'Starboard', 'Stern', 'Aft'], 'The left side, the right side, the rear end, and towards the rear.'),
+      g(3, '___SHIP', ['Friend', 'Hard', 'Member', 'Citizen'], 'Friendship, hardship, membership and citizenship.'),
+      g(4, 'Hidden boats', ['Market', 'Graft', 'Junket', 'Eyeliner'], 'mARKet hides ARK, gRAFT hides RAFT, JUNKet hides JUNK and eyeLINER hides LINER.'),
+    ],
+    herring: 'HARD becomes HARDSHIP, but that is not a boat. STERN hides a TERN and STARBOARD a BOAR, but neither is a vessel.',
+  },
+  {
+    id: 'web-055',
+    title: 'Insect world',
+    groups: [
+      g(1, 'Insects', ['Cricket', 'Locust', 'Weevil', 'Earwig'], 'Four six-legged insects.'),
+      g(2, 'Insect life stages', ['Larva', 'Pupa', 'Nymph', 'Chrysalis'], 'Immature stages between egg and adult.'),
+      g(3, '___BUG', ['Bed', 'Litter', 'Jitter', 'Hum'], 'Bedbug, litterbug, jitterbug and humbug.'),
+      g(4, 'Hidden insects', ['Signature', 'Mother', 'Antique', 'Blouse'], 'siGNATure hides GNAT, MOTHer hides MOTH, ANTique hides ANT and bLOUSE hides LOUSE.'),
+    ],
+    herring: 'CRICKET is also a sport and EARWIG starts with EAR, but both are insects.',
+  },
+  {
+    id: 'web-056',
+    title: 'Money talks',
+    groups: [
+      g(1, 'Currencies', ['Yen', 'Rupee', 'Peso', 'Krona'], 'Currencies of Japan, India, Mexico and Sweden, among others.'),
+      g(2, 'Banking words', ['Interest', 'Loan', 'Mortgage', 'Deposit'], 'Terms from a bank statement.'),
+      g(3, '___ BANK', ['Piggy', 'River', 'Blood', 'Food'], 'Piggy bank, river bank, blood bank and food bank.'),
+      g(4, 'Hidden currencies', ['Brandish', 'Neuron', 'Cereal', 'Wonder'], 'bRANDish hides RAND, nEUROn hides EURO, ceREAL hides REAL and WONder hides WON.'),
+    ],
+    herring: 'BANK suggests the banking words, but PIGGY, RIVER, BLOOD and FOOD make their own ___ BANK set. YEN also means a longing.',
+  },
+  {
+    id: 'web-057',
+    title: 'Mother tongues',
+    groups: [
+      g(1, 'Languages', ['Hindi', 'Swahili', 'Welsh', 'Tagalog'], 'Languages of India, East Africa, Wales and the Philippines.'),
+      g(2, 'Greetings', ['Hola', 'Ciao', 'Namaste', 'Bonjour'], 'Hello in Spanish, Italian, Hindi and French.'),
+      g(3, 'DOUBLE ___', ['Agent', 'Decker', 'Take', 'Check'], 'Double agent, double-decker, double take and double-check.'),
+      g(4, 'No A, E, I, O or U', ['Rhythm', 'Lynx', 'Crypt', 'Glyph'], 'Each word manages without a single standard vowel.'),
+    ],
+    herring: 'NAMASTE is a Hindi greeting, but HINDI itself belongs with the languages.',
+  },
+  {
+    id: 'web-058',
+    title: 'Sound waves',
+    groups: [
+      g(1, 'Onomatopoeia', ['Hiss', 'Clang', 'Sizzle', 'Murmur'], 'Words that imitate the sounds they name.'),
+      g(2, 'Parts of the ear', ['Anvil', 'Stirrup', 'Hammer', 'Cochlea'], 'Three tiny middle-ear bones and the spiral of the inner ear.'),
+      g(3, '___PHONE', ['Micro', 'Ear', 'Mega', 'Smart'], 'Microphone, earphone, megaphone and smartphone.'),
+      g(4, 'Hidden noises', ['Bangle', 'Human', 'Boomerang', 'Pudding'], 'BANGle hides BANG, HUMan hides HUM, BOOMerang hides BOOM and pudDING hides DING.'),
+    ],
+    herring: 'EAR belongs to the ear, surely? Not here: it makes EARPHONE. ANVIL and HAMMER look like tools, but they are ear bones.',
+  },
+  {
+    id: 'web-059',
+    title: 'Opposites attract',
+    groups: [
+      g(1, 'Happy', ['Glad', 'Merry', 'Jolly', 'Content'], 'Four words for feeling pleased.'),
+      g(2, 'Sad', ['Glum', 'Morose', 'Gloomy', 'Downcast'], 'Four words for feeling low.'),
+      g(3, '___SIDE', ['Sea', 'Bed', 'Way', 'Country'], 'Seaside, bedside, wayside and countryside.'),
+      g(4, 'Words that are their own opposites', ['Sanction', 'Cleave', 'Dust', 'Oversight'], 'Sanction: approve or penalise. Cleave: split or cling. Dust: remove dust or sprinkle it. Oversight: supervision or a failure to notice.'),
+    ],
+    herring: 'CONTENT can also mean what is inside something, but here it means happy.',
+  },
+  {
+    id: 'web-060',
+    title: 'Last orders',
+    groups: [
+      g(1, 'Pub games', ['Darts', 'Snooker', 'Skittles', 'Dominoes'], 'Four games played in pubs.'),
+      g(2, 'Beer styles', ['Stout', 'Bitter', 'Pilsner', 'Mild'], 'Four styles of beer.'),
+      g(3, '___POOL', ['Car', 'Whirl', 'Rock', 'Gene'], 'Carpool, whirlpool, rock pool and gene pool.'),
+      g(4, 'Anagrams of drinks', ['Regal', 'Report', 'Cried', 'Dame'], 'REGAL = LAGER, REPORT = PORTER, CRIED = CIDER, DAME = MEAD.'),
+    ],
+    herring: 'STOUT, BITTER and MILD look like adjectives, but they are beers. REGAL and REPORT are LAGER and PORTER rearranged.',
+  },
+];

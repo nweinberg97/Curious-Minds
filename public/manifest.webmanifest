@@ -1,0 +1,11 @@
+{
+  "name": "Curious Minds",
+  "short_name": "Curious Minds",
+  "description": "Quick, beautiful brain games: wordplay, world knowledge and connections.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0e1530",
+  "theme_color": "#0e1530",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
