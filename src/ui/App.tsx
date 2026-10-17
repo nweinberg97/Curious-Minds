@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PlayerStore } from '../storage/store';
 import { openBackend } from '../storage/db';
 import { GAME_BY_ID } from '../games/registry';
 import { setSoundEnabled } from '../engine/sound';
 import { inArtifactViewer } from '../storage/transfer';
-import { Home } from './Home';
+import { Home, markReturningHome } from './Home';
 import { GameScreen } from './GameScreen';
 import { Progress } from './Progress';
 import { Settings } from './Settings';
@@ -61,6 +61,12 @@ function Shell() {
   const [hash, nonce] = useHash();
   const route = parseRoute(hash);
   const offline = useOffline();
+  // Coming back from a game: let the home page restore the machine and scroll position.
+  const prevView = useRef(route.view);
+  if (prevView.current === 'game' && route.view === 'home') markReturningHome();
+  useEffect(() => {
+    prevView.current = route.view;
+  });
 
   useEffect(() => {
     document.documentElement.dataset.motion = store.settings.motion;

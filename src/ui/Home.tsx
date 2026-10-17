@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CATEGORIES, COMING_SOON, GAMES, GAME_BY_ID } from '../games/registry';
 import type { GameDef } from '../engine/types';
 import { GameArt, GameIcon } from './art';
 import { Icon, fmt, go, useStore } from './components';
-import { Taster } from './Tasters';
+import { Taster, TasterNav } from './Tasters';
 import { totalTokens, rankFor } from '../engine/levels';
 import { dayKey, hashString, mulberry32, pick } from '../engine/random';
 
@@ -22,13 +22,44 @@ function todaysPick() {
   return pick(GAMES, mulberry32(hashString(`spotlight:${dayKey()}`)));
 }
 
+/**
+ * Remembered while the app is open, so leaving a game drops you back exactly where you were:
+ * same machine, same games tasted, same scroll position.
+ */
+const memory = { machine: '', tasted: new Set<string>(), scrollY: 0, returning: false };
+export function markReturningHome() {
+  memory.returning = true;
+}
+
 export function Home() {
   const store = useStore();
-  const [machine, setMachine] = useState(() => store.profile.recentGames.length ? todaysPick().id : 'word-rush');
+  const [machine, setMachine] = useState(() => memory.machine || 'word-rush');
   const [plays, setPlays] = useState(0);
-  const [won, setWon] = useState(false);
+  const [tasted, setTasted] = useState<Set<string>>(() => new Set(memory.tasted));
   const [filter, setFilter] = useState<Filter>('all');
+  const cabinetRef = useRef<HTMLDivElement>(null);
   const game = GAME_BY_ID.get(machine)!;
+  const idx = GAMES.findIndex((g) => g.id === machine);
+  const nextGame = GAMES[(idx + 1) % GAMES.length];
+  const prevGame = GAMES[(idx - 1 + GAMES.length) % GAMES.length];
+
+  useEffect(() => {
+    memory.machine = machine;
+  }, [machine]);
+  useEffect(() => {
+    if (memory.returning) {
+      memory.returning = false;
+      const y = memory.scrollY;
+      requestAnimationFrame(() => window.scrollTo(0, y));
+    }
+    // Track the scroll position while the arcade is on screen. (Reading it on unmount is too late:
+    // by then the game screen has replaced the page and the browser has already clamped the scroll.)
+    const onScroll = () => {
+      memory.scrollY = window.scrollY;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const due = store.due();
   const dueByGame = new Map<string, number>();
@@ -38,10 +69,26 @@ export function Home() {
   const spot = todaysPick();
   const shown = GAMES.filter(FILTERS.find((f) => f.id === filter)!.test);
 
-  const choose = (id: string) => {
+  const choose = (id: string, scroll = false) => {
     setMachine(id);
-    setWon(false);
     setPlays((p) => p + 1);
+    if (scroll) {
+      const el = cabinetRef.current;
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 84;
+        window.scrollTo({ top, behavior: 'smooth' });
+        requestAnimationFrame(() => el.querySelector<HTMLElement>('.screen input, .screen button')?.focus({ preventScroll: true }));
+      }
+    }
+  };
+
+  const onWin = () => {
+    setTasted((t) => {
+      const n = new Set(t);
+      n.add(machine);
+      memory.tasted = n;
+      return n;
+    });
   };
 
   const surprise = () => {
@@ -51,25 +98,41 @@ export function Home() {
 
   const ticker = [
     `Today's pick: ${spot.title}`,
-    ...COMING_SOON.map((c) => `Coming soon: ${c.title}`),
-    '7 games, free forever',
-    'No sign-up, no ads',
+    'Taste all 7 games right here',
+    ...COMING_SOON.map((c) => `Next in the workshop: ${c.title}`),
+    'Free forever, no sign-up',
   ];
 
   return (
     <main className="home-page" id="main">
       <div className="wrap">
-        <section className="hero" aria-label="Try the arcade">
+        <section className="hero" aria-label="Taste the games">
           <div className="hero-copy">
-            <span className="hero-eyebrow"><span className="coin" aria-hidden="true">c</span><b>7 games</b> and more on the way</span>
+            <span className="hero-eyebrow"><span className="coin" aria-hidden="true">c</span><b>7 games</b> to taste, no sign-up</span>
             <h1>
               <span className="w w1">An arcade</span>{' '}
               <span className="w w2">for your</span>{' '}
               <span className="w w3">brain.</span>
             </h1>
             <p className="hero-lede">
-              Quick word, world and puzzle games that leave you <b>a little smarter</b> every round. Press a button on the machine and try one right now.
+              Quick word, world and puzzle games that leave you <b>a little smarter</b> every round. Taste every game on the machine, then jump into the one you like.
             </p>
+            <div className="taste-progress" aria-label={`${tasted.size} of ${GAMES.length} games tasted`}>
+              {GAMES.map((g) => (
+                <button
+                  key={g.id}
+                  className={`taste-dot ${tasted.has(g.id) ? 'done' : ''} ${g.id === machine ? 'now' : ''}`}
+                  style={{ ['--c' as string]: g.color }}
+                  onClick={() => choose(g.id)}
+                  aria-label={`${g.title}${tasted.has(g.id) ? ', tasted' : ''}`}
+                >
+                  {tasted.has(g.id) ? '✓' : ''}
+                </button>
+              ))}
+              <span className="taste-count">
+                {tasted.size === GAMES.length ? 'You tasted them all!' : `${tasted.size} of ${GAMES.length} tasted`}
+              </span>
+            </div>
             <div className="hero-actions">
               <a className="btn btn-primary btn-lg" href={`#play.${game.id}`} style={{ ['--accent' as string]: game.color }}>
                 Play {game.title}
@@ -78,39 +141,42 @@ export function Home() {
                 <Icon name="shuffle" size={18} /> Surprise me
               </button>
             </div>
-            <ul className="hero-facts">
-              <li style={{ ['--c' as string]: 'var(--lime)' }}>Free, no limits</li>
-              <li style={{ ['--c' as string]: 'var(--sky)' }}>No account</li>
-              <li style={{ ['--c' as string]: 'var(--pink)' }}>Learn something every round</li>
-            </ul>
           </div>
 
-          <div className="cabinet" style={{ ['--game' as string]: game.color }}>
+          <div className="cabinet" ref={cabinetRef} style={{ ['--game' as string]: game.color }}>
             <div className="cabinet-top">
+              <button className="cab-nav" onClick={() => choose(prevGame.id)} aria-label={`Previous game: ${prevGame.title}`}>
+                <Icon name="back" size={18} />
+              </button>
               <span className="now">{game.title}</span>
-              <span className="bulbs" aria-hidden="true"><i /><i /><i /></span>
+              <button className="cab-nav" onClick={() => choose(nextGame.id)} aria-label={`Next game: ${nextGame.title}`}>
+                <span style={{ display: 'inline-flex', transform: 'scaleX(-1)' }}><Icon name="back" size={18} /></span>
+              </button>
             </div>
             <div className="screen" aria-live="polite">
-              <Taster key={`${machine}-${plays}`} id={machine} onWin={() => setWon(true)} />
+              <TasterNav.Provider value={{ next: () => choose(nextGame.id), nextTitle: nextGame.title, full: `#play.${game.id}`, fullTitle: game.title }}>
+                <Taster key={`${machine}-${plays}`} id={machine} onWin={onWin} />
+              </TasterNav.Provider>
             </div>
-            <div className="controls" role="group" aria-label="Choose a game to try">
+            <div className="controls" role="group" aria-label="Choose a game to taste">
               {GAMES.map((g) => (
                 <button
                   key={g.id}
                   className="abtn"
                   style={{ ['--c' as string]: g.color }}
                   aria-pressed={g.id === machine}
-                  aria-label={`Try ${g.title}`}
+                  aria-label={`Taste ${g.title}${tasted.has(g.id) ? ' (tasted)' : ''}`}
                   onClick={() => choose(g.id)}
                 >
                   <GameIcon id={g.id} />
+                  {tasted.has(g.id) && <span className="tick" aria-hidden="true">✓</span>}
                   <span className="tip" aria-hidden="true">{g.title}</span>
                 </button>
               ))}
             </div>
             <div className="cabinet-foot">
-              <span className="muted">{won ? 'Liked that? The full round is longer and teaches you more.' : game.tagline}</span>
-              <a className="btn btn-primary btn-sm" href={`#play.${game.id}`}>Full game</a>
+              <span className="muted">{game.tagline}</span>
+              <a className="btn btn-primary btn-sm" href={`#play.${game.id}`}>Play full game</a>
             </div>
           </div>
         </section>
@@ -148,7 +214,7 @@ export function Home() {
           <div className="shead">
             <div>
               <h2 id="pick-title">Pick a game</h2>
-              <p>Every game is free with no limits, and has a no-clock mode.</p>
+              <p>Taste any game on the machine, or jump straight in. Every game is free, unlimited and has a no-clock mode.</p>
             </div>
             <div className="filters" role="group" aria-label="Filter games">
               {FILTERS.map((f) => (
@@ -164,36 +230,38 @@ export function Home() {
               const best = store.best(g.id);
               const cat = CATEGORIES.find((c) => c.id === g.category)!;
               return (
-                <a
-                  key={g.id}
-                  className={`gcard ${p >= 5 ? 'finish-foil' : ''}`}
-                  style={{ ['--game' as string]: g.color }}
-                  href={`#${g.id}`}
-                  aria-label={`${g.title}. ${g.tagline} About ${g.length}.${best ? ` Your best ${fmt(best)}.` : ''}`}
-                >
-                  <div className="art"><GameArt id={g.id} /></div>
-                  <span className="play-tag" aria-hidden="true">Play</span>
+                <article key={g.id} className={`gcard ${p >= 5 ? 'finish-foil' : ''}`} style={{ ['--game' as string]: g.color }}>
+                  <a className="art" href={`#${g.id}`} tabIndex={-1} aria-hidden="true"><GameArt id={g.id} /></a>
                   {p >= 25 && <span className="stamp" aria-hidden="true">25<br />rounds</span>}
+                  {tasted.has(g.id) && <span className="tasted-tag" aria-hidden="true">Tasted ✓</span>}
                   <div className="gcard-body">
-                    <h3>{g.title}</h3>
+                    <h3><a href={`#${g.id}`}>{g.title}</a></h3>
                     <p>{g.tagline}</p>
                     <div className="gcard-meta">
                       <span className="badge">{cat.title}</span>
                       <span className="badge">{g.length}</span>
-                      {best ? <span className="badge dark">Best {fmt(best)}</span> : <span className="badge">New</span>}
+                      {best ? <span className="badge dark">Best {fmt(best)}</span> : null}
                       {dueByGame.get(g.id) ? <span className="badge dark">{dueByGame.get(g.id)} to review</span> : null}
                     </div>
+                    <div className="gcard-actions">
+                      <button className="btn btn-sm btn-ghost" onClick={() => choose(g.id, true)} aria-label={`Taste ${g.title} on the machine`}>
+                        Taste
+                      </button>
+                      <a className="btn btn-sm btn-tile" href={`#play.${g.id}`} aria-label={`Play ${g.title}`}>
+                        Play
+                      </a>
+                    </div>
                   </div>
-                </a>
+                </article>
               );
             })}
             {filter === 'all' && (
               <a className="gcard more" href="#soon-title" onClick={(e) => { e.preventDefault(); document.getElementById('soon-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}>
                 <span className="stack" aria-hidden="true">
-                  {COMING_SOON.slice(0, 4).map((c) => <span key={c.title} style={{ ['--c' as string]: c.color }} />)}
+                  {COMING_SOON.map((c) => <span key={c.title} style={{ ['--c' as string]: c.color }} />)}
                 </span>
-                <h3>{COMING_SOON.length} more games coming</h3>
-                <p>Math, memory, logic, riddles and more. Peek in the workshop.</p>
+                <h3>More games on the way</h3>
+                <p>Peek at what's being built next.</p>
               </a>
             )}
           </div>
@@ -248,14 +316,14 @@ export function Home() {
         <section className="band" aria-labelledby="soon-title" style={{ display: 'grid', gap: 'var(--s5)' }}>
           <div className="shead">
             <div>
-              <h2 id="soon-title">In the workshop</h2>
-              <p>New games we're building next. The arcade keeps growing.</p>
+              <h2 id="soon-title">Next in the workshop</h2>
+              <p>The next three games we're building. The arcade keeps growing.</p>
             </div>
           </div>
           <div className="workshop">
             {COMING_SOON.map((c) => (
               <article key={c.title} className="soon" style={{ ['--game' as string]: c.color }}>
-                <span className="tape">Coming soon</span>
+                <span className="tape">In the works</span>
                 <span className="g" aria-hidden="true">{c.glyph}</span>
                 <span className="fam">{c.family}</span>
                 <h3>{c.title}</h3>

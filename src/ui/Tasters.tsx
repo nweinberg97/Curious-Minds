@@ -2,7 +2,7 @@
  * Twenty-second tasters for the arcade machine on the home page.
  * Each one uses the real game logic, so what you try here is exactly how the full game judges answers.
  */
-import { useMemo, useRef, useState } from 'react';
+import { createContext, useContext, useMemo, useRef, useState } from 'react';
 import { judgeLink } from '../games/wordRush/graph';
 import { indexes, judgeAnswer } from '../games/alphabet/logic';
 import { SCRAMBLE_WORDS } from '../content/scramble';
@@ -18,17 +18,30 @@ export interface TasterProps {
   onWin: () => void;
 }
 
-/** Shared win/again footer inside the screen. */
+/** Lets a finished taster offer the next game, and the full game, without knowing about the machine. */
+export const TasterNav = createContext<{ next: () => void; nextTitle: string; full: string; fullTitle: string } | null>(null);
+
+/** Shared result footer inside the screen: the moment to play for real, try again, or taste the next game. */
 function Win({ title, children, again }: { title: string; children?: React.ReactNode; again: () => void }) {
+  const nav = useContext(TasterNav);
   return (
     <div className="win lift" role="status">
       <span className="big">{title}</span>
       {children}
-      <button className="btn btn-ghost btn-sm" onClick={again}>Try another</button>
+      <div className="row">
+        {nav && <a className="btn btn-primary btn-sm" href={nav.full}>Play {nav.fullTitle}</a>}
+        <button className="btn btn-ghost btn-sm" onClick={again}>Again</button>
+        {nav && (
+          <button className="btn btn-tile btn-sm" onClick={nav.next}>
+            Next: {nav.nextTitle}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
 
+/** `win` celebrates a correct finish; `done` just records that the game was tasted. */
 function useWin(onWin: () => void) {
   const ref = useRef<HTMLDivElement>(null);
   return {
@@ -38,6 +51,7 @@ function useWin(onWin: () => void) {
       confettiFrom(ref.current, 70);
       onWin();
     },
+    done: onWin,
   };
 }
 
@@ -235,7 +249,7 @@ export function DefineTaster({ onWin }: TasterProps) {
     return { word: w, options: shuffle([w, ...others]) };
   }, [seed]);
   const [chosen, setChosen] = useState<string | null>(null);
-  const { ref, win } = useWin(onWin);
+  const { ref, win, done } = useWin(onWin);
 
   const choose = (id: string) => {
     if (chosen) return;
@@ -243,7 +257,10 @@ export function DefineTaster({ onWin }: TasterProps) {
     if (id === word.id) {
       sfx.correct();
       setTimeout(win, 120);
-    } else sfx.wrong();
+    } else {
+      sfx.wrong();
+      done();
+    }
   };
 
   return (
@@ -274,7 +291,7 @@ export function GeoTaster({ onWin, kind }: TasterProps & { kind: 'flag' | 'capit
     return { c: country, options: shuffle([country, ...distractors(country, 2, kind).slice(0, 2)]) };
   }, [seed, kind]);
   const [chosen, setChosen] = useState<string | null>(null);
-  const { ref, win } = useWin(onWin);
+  const { ref, win, done } = useWin(onWin);
   const label = (o: typeof c) => (kind === 'flag' ? o.name : fullCapitals(o)[0].name);
 
   const choose = (code: string) => {
@@ -283,7 +300,10 @@ export function GeoTaster({ onWin, kind }: TasterProps & { kind: 'flag' | 'capit
     if (code === c.code) {
       sfx.correct();
       setTimeout(win, 120);
-    } else sfx.wrong();
+    } else {
+      sfx.wrong();
+      done();
+    }
   };
 
   return (

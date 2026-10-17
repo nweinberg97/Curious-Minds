@@ -14,7 +14,7 @@ A local-first arcade of quick brain games. Seven games in three families, playab
 | | **Capital Quest** | Name the capitals of ten countries |
 | Connections | **Word Web** | Find four hidden groups of four among sixteen words |
 
-The home page is an arcade machine: press its buttons to try a 20-second taster of any game before starting a full round. Every finished round earns tokens towards an arcade rank, and a "workshop" shows the games coming next.
+The home page is an arcade machine: press its buttons (or "Taste" on any game card) to try a 20-second taster of every game, hop to the next one, and jump into the full game when you like it. A games menu in every game, Esc, and a return to exactly where you were on the home page make it easy to go in and out. Every finished round earns tokens towards an arcade rank, and the workshop shows the next three games being built.
 
 Every round ends with something to learn (definitions, flag stories, capital facts, why groups connect), and misses come back later through a light spaced-review queue. Every game is free and unlimited, with a relaxed or untimed mode.
 

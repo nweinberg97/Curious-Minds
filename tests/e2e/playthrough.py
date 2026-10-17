@@ -46,11 +46,11 @@ def tasters(page):
         page.wait_for_timeout(120)
         check(page.locator(".screen .label").count() == 1, f"taster {i} renders")
     # play the flag taster and the word web taster to a result
-    page.get_by_role("button", name="Try Flag Finder").click()
+    page.get_by_role("button", name="Taste Flag Finder", exact=True).click()
     page.locator(".screen .choice").first.click()
     page.wait_for_selector(".screen .win")
     check(True, "flag taster reaches a result")
-    page.get_by_role("button", name="Try Word Rush").click()
+    page.get_by_role("button", name="Taste Word Rush", exact=True).click()
     start = page.locator(".screen .taster-chain .tile").first.inner_text().strip().lower()
     used = {start}
     cur = start
@@ -64,6 +64,37 @@ def tasters(page):
     page.wait_for_selector(".screen .win")
     check(True, "word rush taster: three links win")
     shot(page, "home-taster")
+    # next-game hop from a finished taster, and tasted progress
+    page.locator(".screen .win").get_by_role("button", name=re.compile("^Next:")).click()
+    check(page.locator(".cabinet-top .now").inner_text().strip() == "Alphabet Sprint", "taster: next game hop")
+    check(page.locator(".taste-dot.done").count() >= 2, "taster: tasted progress recorded")
+    # taste from a game card scrolls to the machine
+    page.locator(".gcard", has_text="Capital Quest").get_by_role("button", name=re.compile("^Taste")).click()
+    page.wait_for_timeout(600)
+    check(page.locator(".cabinet-top .now").inner_text().strip() == "Capital Quest", "card Taste loads the machine")
+    # in and out: open a game intro, switch games, leave with Esc, land back where we were
+    page.mouse.wheel(0, 900)
+    page.wait_for_timeout(400)
+    play_link = page.locator(".gcard", has_text="Word Web").get_by_role("link", name="Play Word Web")
+    play_link.scroll_into_view_if_needed()
+    page.wait_for_timeout(200)
+    y = page.evaluate("scrollY")
+    play_link.click()
+    page.wait_for_selector(".web-cell")
+    page.get_by_role("button", name="Pause").click()
+    page.get_by_role("button", name="Back to the arcade").click()
+    page.wait_for_selector(".cabinet")
+    page.wait_for_timeout(300)
+    check(abs(page.evaluate("scrollY") - y) < 60, f"returning home restores scroll ({y})")
+    check(page.locator(".cabinet-top .now").inner_text().strip() == "Capital Quest", "returning home keeps the machine")
+    page.goto(BASE + "#flag-finder")
+    page.get_by_role("button", name=re.compile("^Games")).click()
+    page.get_by_role("menuitem", name="Word Scramble").click()
+    page.wait_for_function("document.querySelector('.intro-title')?.textContent.includes('Word Scramble')", timeout=5000)
+    check("Word Scramble" in page.locator(".intro-title").inner_text(), "game switcher hops games")
+    page.keyboard.press("Escape")
+    page.wait_for_selector(".cabinet")
+    check(True, "Esc leaves a game intro")
 
 
 def word_rush(page):

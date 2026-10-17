@@ -20,12 +20,9 @@ export const CATEGORIES: Category[] = [
 /** Games in the workshop. Shown on the home page so players know more is coming; not playable yet. */
 export const COMING_SOON: ComingSoon[] = [
   { title: 'Number Crunch', family: 'Mental math', blurb: 'Quick sums, sneaky percentages and estimates against the clock.', color: '#FFC93C', glyph: '7×8' },
-  { title: 'Memory Palace', family: 'Memory', blurb: 'Glance at a scene, then rebuild it from memory.', color: '#45D4F5', glyph: 'M?' },
-  { title: 'Logic Locks', family: 'Logic', blurb: 'Crack the code with clues and pure deduction.', color: '#A8E063', glyph: 'IF' },
-  { title: 'Riddle Room', family: 'Lateral thinking', blurb: 'Riddles and brain-benders that reward a sideways look.', color: '#FF5FA8', glyph: '??' },
-  { title: 'Timeline', family: 'History', blurb: 'Drop events into the right order through history.', color: '#FF8A3D', glyph: '1→2' },
-  { title: 'Nature Lab', family: 'Science', blurb: 'Animals, elements and how the world works.', color: '#B98CFF', glyph: 'Fe' },
-];
+  { title: 'Memory Palace', family: 'Memory', blurb: 'Glance at a grid of tiles, then rebuild it from memory.', color: '#45D4F5', glyph: 'M?' },
+  { title: 'Timeline', family: 'History', blurb: 'Drop inventions and events into the right order through history.', color: '#FF8A3D', glyph: '1→2' },
+]
 
 const geoModes = [
   { id: 'pick', label: 'Quick pick', hint: '4 choices, 15 sec each' },

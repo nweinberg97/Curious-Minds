@@ -3,6 +3,8 @@ import type { GameDef, RoundConfig, RoundResult } from '../engine/types';
 import type { RoundOutcome } from '../storage/store';
 import { GameArt } from './art';
 import { CountUp, Icon, Seg, fmt, go, useStore } from './components';
+import { GAMES } from '../games/registry';
+import { GameIcon } from './art';
 import { sfx } from '../engine/sound';
 import { rankFor, tokensForRound, totalTokens } from '../engine/levels';
 import { confetti } from './confetti';
@@ -65,6 +67,16 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [paused]);
+
+  useEffect(() => {
+    if (phase === 'play') return;
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null;
+      if (e.key === 'Escape' && !(t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) go('');
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [phase]);
 
   useEffect(() => {
     if (phase !== 'play' || paused) return;
@@ -144,7 +156,12 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
               {pop > 0 && delta > 0 && <span key={`d${pop}`} className="float-pts" aria-hidden="true">+{fmt(delta)}</span>}
             </div>
           )}
-          {phase !== 'play' && <span className="spacer" />}
+          {phase !== 'play' && (
+            <>
+              <span className="spacer" />
+              <GameSwitcher current={game.id} />
+            </>
+          )}
         </div>
       </header>
 
@@ -225,6 +242,7 @@ function Summary({ game, result, outcome, modeLabel, onAgain, onSettings }: {
     againRef.current?.focus({ preventScroll: true });
   }, []);
   const prev = outcome.previousBest;
+  const nextGame = GAMES[(GAMES.findIndex((g) => g.id === game.id) + 1) % GAMES.length];
   return (
     <section className="summary" aria-labelledby="summary-title">
       <div className="summary-top">
@@ -308,8 +326,58 @@ function Summary({ game, result, outcome, modeLabel, onAgain, onSettings }: {
           <Icon name="replay" size={18} /> Play again
         </button>
         <button className="btn btn-ghost" onClick={onSettings}>Change mode</button>
+        <a className="btn btn-ghost" href={`#${nextGame.id}`} style={{ ['--accent' as string]: nextGame.color }}>Try {nextGame.title}</a>
         <button className="btn btn-ghost" onClick={() => go('')}>Arcade</button>
       </div>
     </section>
+  );
+}
+
+/** Hop between games without going back to the arcade. */
+function GameSwitcher({ current }: { current: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', onDown);
+    window.addEventListener('keydown', onKey, true);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      window.removeEventListener('keydown', onKey, true);
+    };
+  }, [open]);
+  return (
+    <div className="switcher" ref={ref}>
+      <button className="switch-btn" aria-expanded={open} aria-haspopup="true" onClick={() => setOpen((o) => !o)}>
+        Games <span aria-hidden="true">▾</span>
+      </button>
+      {open && (
+        <div className="switch-menu" role="menu">
+          {GAMES.map((g) => (
+            <a
+              key={g.id}
+              role="menuitem"
+              href={`#${g.id}`}
+              className={g.id === current ? 'on' : ''}
+              style={{ ['--c' as string]: g.color }}
+              onClick={() => setOpen(false)}
+            >
+              <span className="ico"><GameIcon id={g.id} /></span>
+              {g.title}
+            </a>
+          ))}
+          <a role="menuitem" href="#" onClick={() => setOpen(false)} className="home-link">Back to the arcade</a>
+        </div>
+      )}
+    </div>
   );
 }
