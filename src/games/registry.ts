@@ -1,4 +1,4 @@
-import type { Category, GameDef } from '../engine/types';
+import type { Category, ComingSoon, GameDef } from '../engine/types';
 import WordRush from './wordRush/WordRush';
 import AlphabetSprint from './alphabet/AlphabetSprint';
 import WordScramble from './scramble/WordScramble';
@@ -12,9 +12,19 @@ import WordWeb from './web/WordWeb';
  */
 
 export const CATEGORIES: Category[] = [
-  { id: 'words', title: 'Wordplay', blurb: 'Vocabulary, fluency and quick thinking', accent: 'var(--marigold)' },
-  { id: 'world', title: 'World', blurb: 'Flags, capitals and a sharper mental map', accent: 'var(--lagoon)' },
-  { id: 'connections', title: 'Connections', blurb: 'Spot the hidden links between ideas', accent: 'var(--orchid)' },
+  { id: 'words', title: 'Wordplay', blurb: 'Vocabulary, fluency and quick thinking', accent: 'var(--pink)' },
+  { id: 'world', title: 'World', blurb: 'Flags, capitals and a sharper mental map', accent: 'var(--sky)' },
+  { id: 'connections', title: 'Connections', blurb: 'Spot the hidden links between ideas', accent: 'var(--grape-pop)' },
+];
+
+/** Games in the workshop. Shown on the home page so players know more is coming; not playable yet. */
+export const COMING_SOON: ComingSoon[] = [
+  { title: 'Number Crunch', family: 'Mental math', blurb: 'Quick sums, sneaky percentages and estimates against the clock.', color: '#FFC93C', glyph: '7×8' },
+  { title: 'Memory Palace', family: 'Memory', blurb: 'Glance at a scene, then rebuild it from memory.', color: '#45D4F5', glyph: 'M?' },
+  { title: 'Logic Locks', family: 'Logic', blurb: 'Crack the code with clues and pure deduction.', color: '#A8E063', glyph: 'IF' },
+  { title: 'Riddle Room', family: 'Lateral thinking', blurb: 'Riddles and brain-benders that reward a sideways look.', color: '#FF5FA8', glyph: '??' },
+  { title: 'Timeline', family: 'History', blurb: 'Drop events into the right order through history.', color: '#FF8A3D', glyph: '1→2' },
+  { title: 'Nature Lab', family: 'Science', blurb: 'Animals, elements and how the world works.', color: '#B98CFF', glyph: 'Fe' },
 ];
 
 const geoModes = [
@@ -31,6 +41,9 @@ export const GAMES: GameDef[] = [
     category: 'words',
     tagline: 'Chain word associations as fast as your mind can jump.',
     length: '60 sec',
+    minutes: 1,
+    color: '#FF5FA8',
+    glyph: '→',
     howTo: [
       'You get a word. Type the first related word that comes to mind and press Enter.',
       'Your word becomes the next prompt. Keep the chain going: ocean, beach, sand, desert, heat.',
@@ -50,6 +63,9 @@ export const GAMES: GameDef[] = [
     category: 'words',
     tagline: 'One letter, three categories. Name as many as you can.',
     length: '60 sec',
+    minutes: 1,
+    color: '#FFC93C',
+    glyph: 'Az',
     howTo: [
       'A letter and three categories appear, like an animal, a city or a food.',
       'Type any answer that fits one of the categories and starts with the letter.',
@@ -70,6 +86,9 @@ export const GAMES: GameDef[] = [
     category: 'words',
     tagline: 'Unscramble eight words that get trickier as you go.',
     length: '2 min',
+    minutes: 2,
+    color: '#FF8A3D',
+    glyph: '?!',
     howTo: [
       'Rearrange the letters to find the word. Type it, or tap the letters in order.',
       'Faster solves score more. Each hint reveals the next letter and costs 25% of that word.',
@@ -89,6 +108,9 @@ export const GAMES: GameDef[] = [
     category: 'words',
     tagline: 'Explain a word in your own words, then see how close you were.',
     length: '3 min',
+    minutes: 3,
+    color: '#A8E063',
+    glyph: 'Df',
     howTo: [
       'Write what the word means and use it in a sentence.',
       'Compare with our definition, examples, synonyms and usage notes.',
@@ -109,6 +131,9 @@ export const GAMES: GameDef[] = [
     category: 'world',
     tagline: 'Name the country behind ten flags.',
     length: '2 min',
+    minutes: 2,
+    color: '#45D4F5',
+    glyph: 'Fl',
     howTo: [
       'A flag appears. Pick the country, or type it in Recall mode.',
       'Fast answers earn a bonus, and three right in a row starts a streak multiplier.',
@@ -125,6 +150,9 @@ export const GAMES: GameDef[] = [
     category: 'world',
     tagline: 'Ten countries. Name their capitals.',
     length: '2 min',
+    minutes: 2,
+    color: '#6E8BFF',
+    glyph: 'Cq',
     howTo: [
       'A country appears. Type its capital, or pick from four in Quick pick.',
       'Accents are optional, and common spellings like Kiev or Bogota count.',
@@ -141,6 +169,9 @@ export const GAMES: GameDef[] = [
     category: 'connections',
     tagline: 'Sixteen words, four hidden groups. Find the links.',
     length: '3 min',
+    minutes: 3,
+    color: '#B98CFF',
+    glyph: '4×4',
     howTo: [
       'Select four words you think share a connection, then submit.',
       'Groups range from straightforward to devious. Watch for red herrings.',

@@ -223,7 +223,7 @@ export function Settings({ offline }: { offline: 'ready' | 'installing' | 'unsup
         <h2 id="s-privacy">Privacy and credits</h2>
         <p>
           Curious Minds has no accounts, analytics, ads or trackers, and never asks for your microphone, camera or location. Your answers
-          never leave your device. The only outside requests are for the two typefaces (Gloock and Schibsted Grotesk) from Google Fonts on
+          never leave your device. The only outside requests are for the two typefaces (Lilita One and Rubik) from Google Fonts on
           your first visit{inArtifactViewer() ? ', plus the Claude page that hosts this copy' : ''}.
         </p>
         <p className="small muted">

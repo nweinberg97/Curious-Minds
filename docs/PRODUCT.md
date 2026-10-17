@@ -132,12 +132,14 @@ Types live in `src/content/types.ts`. Each bank is authored as typed data and ch
 
 ## 10. Design direction
 
-**Concept: a late-night games parlour.** Deep ink-blue rooms, enamel-bright game tiles, and lettering you want to touch. The signature element is the **letter tile**: chunky, slightly embossed, used for wordmarks, scramble pieces and score digits.
+**Concept: the night arcade.** A grape-dark room full of candy-coloured cabinets. Everything is a sticker: thick ink outlines, hard drop shadows, chunky type and buttons you want to press. It should feel like a game you play, not an app you use.
 
-- **Colour:** Ink `#0E1530` (ground), Slate `#18213F` (surfaces), Bone `#EFE6D4` (text), Marigold `#F4B63F` (Wordplay), Lagoon `#44C4B0` (World), Orchid `#C79AF2` (Connections), Coral `#FF7A6B` (errors and heat).
-- **Type:** Gloock (display, big numbers), Schibsted Grotesk (UI and body).
-- **Motion:** short (120–260 ms), springy on correct answers, a single shake on wrong ones, all removed under reduced motion.
-- **Sound:** synthesised Web Audio blips, off until the player turns it on, never more than one sound per action.
+- **Colour:** room Grape `#1B1036`, surfaces `#261850` / `#33226A`, ink outlines `#0B0620`, Cream text `#FFF4E0`. Every game owns a candy colour: Word Rush bubblegum `#FF5FA8`, Alphabet Sprint sunshine `#FFC93C`, Word Scramble tangerine `#FF8A3D`, Define It lime `#A8E063`, Flag Finder sky `#45D4F5`, Capital Quest cobalt `#6E8BFF`, Word Web grape-pop `#B98CFF`. Right `#5BE38C`, wrong `#FF5B5B`.
+- **Type:** Lilita One (display, scores, game names), Rubik (UI and body).
+- **Signature:** the arcade machine on the home page. Seven round arcade buttons switch its screen between 20-second tasters of each game, built on the real game logic, so a first-time visitor understands the studio by playing it.
+- **Arcade feel:** tokens for every finished round and an arcade rank (Rookie to Arcade Legend) that only goes up; floating score pops; confetti on wins and new bests; a high-score board; a "coming soon" workshop and ticker that show the arcade is growing.
+- **Motion:** springy and quick (130–420 ms), one shake on wrong answers, confetti only on wins, all removed under reduced motion.
+- **Sound:** synthesised Web Audio blips, off until the player turns it on.
 
 ## 11. MVP scope and acceptance criteria
 

@@ -43,13 +43,10 @@ function buildIndex(cat: AlphabetCategory): CategoryIndex {
     const spellings = (common ? raw.slice(1) : raw).split('|').map((s) => s.trim()).filter(Boolean);
     const canonical = spellings[0];
     const ans: Answer = { canonical, common, categoryId: cat.id };
-    const letters = new Set<string>();
-    for (const sp of spellings) {
-      index.add(sp, ans);
-      const l = looseKey(sp)[0];
-      if (l) letters.add(l);
-    }
-    for (const l of letters) {
+    for (const sp of spellings) index.add(sp, ans);
+    // Group by the canonical spelling's first letter, so round letters and "also on our list" stay obvious.
+    const l = looseKey(canonical)[0];
+    if (l) {
       const arr = byLetter.get(l) ?? [];
       arr.push(ans);
       byLetter.set(l, arr);

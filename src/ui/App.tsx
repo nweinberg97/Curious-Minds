@@ -8,7 +8,8 @@ import { Home } from './Home';
 import { GameScreen } from './GameScreen';
 import { Progress } from './Progress';
 import { Settings } from './Settings';
-import { Icon, LiveRegion, StoreCtx, Toaster, Wordmark, toast, useStore } from './components';
+import { Icon, LiveRegion, StoreCtx, Toaster, Wordmark, fmt, toast, useStore } from './components';
+import { rankFor, totalTokens } from '../engine/levels';
 
 type Offline = 'ready' | 'installing' | 'unsupported' | 'artifact';
 
@@ -90,7 +91,8 @@ function Shell() {
         <div className="wrap">
           <Wordmark />
           <nav aria-label="Main">
-            <a className="iconbtn" href="#progress" aria-current={route.view === 'progress' ? 'page' : undefined}>
+            <LevelChip />
+            <a className="iconbtn hide-sm" href="#progress" aria-current={route.view === 'progress' ? 'page' : undefined}>
               <Icon name="chart" /> <span className="label">Progress</span>
             </a>
             <a className="iconbtn" href="#settings" aria-current={route.view === 'settings' ? 'page' : undefined}>
@@ -111,6 +113,20 @@ function Shell() {
       {route.view === 'progress' && <Progress />}
       {route.view === 'settings' && <Settings offline={offline} />}
     </>
+  );
+}
+
+function LevelChip() {
+  const store = useStore();
+  const tokens = totalTokens(store.sessions);
+  const rank = rankFor(tokens);
+  return (
+    <a className="level-chip" href="#progress" aria-label={`Level ${rank.level}, ${rank.name}. ${tokens} tokens.`}>
+      <span className="coin" aria-hidden="true">c</span>
+      <span className="tnum">{fmt(tokens)}</span>
+      <span className="lv">Lv {rank.level}</span>
+      <span className="txt">{rank.name}</span>
+    </a>
   );
 }
 

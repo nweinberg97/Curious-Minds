@@ -34,8 +34,7 @@ const css = readFileSync(join(root, 'src/styles/app.css'), 'utf8')
   .replace(/\/\*[\s\S]*?\*\//g, '')
   .replace(/\n\s*\n/g, '\n');
 
-const FONTS =
-  'https://fonts.googleapis.com/css2?family=Gloock&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap';
+const FONTS = 'https://fonts.googleapis.com/css2?family=Lilita+One&family=Rubik:ital,wght@0,400..900;1,400..700&display=swap';
 const DESCRIPTION = 'Quick, beautiful brain games for curious minds: wordplay, world knowledge and connections. Free, no account, private.';
 const BOOT_CSS = `.boot{min-height:100vh;display:grid;place-items:center}`;
 
@@ -53,7 +52,7 @@ if (target === 'site') {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Curious Minds</title>
 <meta name="description" content="${DESCRIPTION}">
-<meta name="theme-color" content="#0e1530">
+<meta name="theme-color" content="#1b1036">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">

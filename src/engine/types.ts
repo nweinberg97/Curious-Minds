@@ -4,6 +4,14 @@ import type { PlayerStore } from '../storage/store';
 
 export type CategoryId = 'words' | 'world' | 'connections';
 
+export interface ComingSoon {
+  title: string;
+  family: string;
+  blurb: string;
+  color: string;
+  glyph: string;
+}
+
 export interface Category {
   id: CategoryId;
   title: string;
@@ -90,6 +98,12 @@ export interface GameDef {
   tagline: string;
   /** Typical round length, e.g. "60 sec". */
   length: string;
+  /** Typical round length in minutes, for the "quick games" filter. */
+  minutes: number;
+  /** The game's own colour: cabinet, buttons, accents. */
+  color: string;
+  /** One or two characters shown on its arcade button. */
+  glyph: string;
   howTo: string[];
   modes: ModeOption[];
   /** Difficulty labels, index + 1 = difficulty. Omit for games without difficulty. */

@@ -4,8 +4,11 @@ import type { RoundOutcome } from '../storage/store';
 import { GameArt } from './art';
 import { CountUp, Icon, Seg, fmt, go, useStore } from './components';
 import { sfx } from '../engine/sound';
+import { rankFor, tokensForRound, totalTokens } from '../engine/levels';
+import { confetti } from './confetti';
 
 type Phase = 'intro' | 'play' | 'summary';
+type Outcome = RoundOutcome & { tokens: number; levelUp: string | null };
 
 export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; autostart: boolean; reviewFocus: boolean }) {
   const store = useStore();
@@ -24,8 +27,9 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
   const [round, setRound] = useState(0);
   const [score, setScore] = useState(0);
   const [pop, setPop] = useState(0);
+  const [delta, setDelta] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [result, setResult] = useState<{ r: RoundResult; o: RoundOutcome } | null>(null);
+  const [result, setResult] = useState<{ r: RoundResult; o: Outcome } | null>(null);
   const [focusReview, setFocusReview] = useState(reviewFocus);
   const startedAt = useRef(Date.now());
 
@@ -78,6 +82,8 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
   const start = () => {
     store.setGamePref(game.id, { mode, difficulty, option });
     setScore(0);
+    scoreRef.current = 0;
+    setPop(0);
     setResult(null);
     setPaused(false);
     startedAt.current = Date.now();
@@ -86,12 +92,16 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
     sfx.tap();
   };
 
+  const scoreRef = useRef(0);
   const onScore = (s: number) => {
+    setDelta(s - scoreRef.current);
+    scoreRef.current = s;
     setScore(s);
     setPop((p) => p + 1);
   };
 
   const onFinish = (r: RoundResult) => {
+    const tokensBefore = totalTokens(store.sessions);
     const o = store.recordRound({
       gameId: game.id,
       mode,
@@ -106,9 +116,12 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
       reviewUpdates: r.reviewUpdates,
       seenIds: r.seenIds,
     });
-    setResult({ r, o });
+    const tokensAfter = totalTokens(store.sessions);
+    const levelUp = rankFor(tokensAfter).level > rankFor(tokensBefore).level ? rankFor(tokensAfter).name : null;
+    setResult({ r, o: { ...o, tokens: tokensForRound(r.score), levelUp } });
     setFocusReview(false);
     setPhase('summary');
+    if (r.score > 0) setTimeout(() => confetti({ count: o.isBest || levelUp ? 140 : 60 }), 250);
   };
 
   const Comp = game.component;
@@ -117,7 +130,7 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
   const dueCount = store.due(game.id).length;
 
   return (
-    <div className={`game cat-${game.category}`}>
+    <div className={`game cat-${game.category}`} style={{ ['--accent' as string]: game.color }}>
       <header className="topbar game-head">
         <div className="wrap">
           <button className="iconbtn" onClick={() => (phase === 'play' ? setPaused(true) : go(''))} aria-label={phase === 'play' ? 'Pause' : 'Back to the arcade'}>
@@ -128,6 +141,7 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
             <div className="scorebox" aria-live="off">
               <span className="lbl">Score</span>
               <span key={pop} className={`val tnum ${pop ? 'score-pop' : ''}`}>{fmt(score)}</span>
+              {pop > 0 && delta > 0 && <span key={`d${pop}`} className="float-pts" aria-hidden="true">+{fmt(delta)}</span>}
             </div>
           )}
           {phase !== 'play' && <span className="spacer" />}
@@ -140,7 +154,7 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
             <div className="intro-head">
               <div className="intro-art"><GameArt id={game.id} /></div>
               <div>
-                <h2 className="intro-title" style={{ fontFamily: 'var(--display)', fontSize: 'var(--t-3xl)', lineHeight: 1 }}>{game.title}</h2>
+                <h2 className="intro-title">{game.title}</h2>
                 <p className="tag">{game.tagline}</p>
               </div>
             </div>
@@ -162,7 +176,7 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
               )}
             </div>
             <div className="start-row">
-              <button className="btn btn-primary btn-lg" onClick={start} autoFocus>Play</button>
+              <button className="btn btn-primary btn-lg" onClick={start} autoFocus>Start</button>
               {dueCount > 0 && (
                 <button className="btn btn-ghost" onClick={() => { setFocusReview(true); start(); }}>
                   Review {dueCount} missed
@@ -200,7 +214,7 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
 function Summary({ game, result, outcome, modeLabel, onAgain, onSettings }: {
   game: GameDef;
   result: RoundResult;
-  outcome: RoundOutcome;
+  outcome: Outcome;
   modeLabel: string;
   onAgain: () => void;
   onSettings: () => void;
@@ -214,14 +228,17 @@ function Summary({ game, result, outcome, modeLabel, onAgain, onSettings }: {
   return (
     <section className="summary" aria-labelledby="summary-title">
       <div className="summary-top">
-        <h2 id="summary-title" className="muted small" style={{ fontWeight: 600 }}>
-          Round complete · {modeLabel}
-        </h2>
+        <h2 id="summary-title" className="round-tag">Round complete · {modeLabel}</h2>
         <div className="final-score">
           <CountUp value={result.score} />
           {outcome.isBest && <span className="best-stamp">{prev === null ? 'First score' : 'New best'}</span>}
         </div>
         <p className="headline">{result.headline}</p>
+        <p className={`tokens-won ${outcome.levelUp ? 'levelup' : ''}`}>
+          <span className="coin" aria-hidden="true">c</span>
+          +{outcome.tokens} token{outcome.tokens === 1 ? '' : 's'}
+          {outcome.levelUp ? ` · Rank up: ${outcome.levelUp}!` : ''}
+        </p>
         <p className="muted small">
           {outcome.isBest
             ? prev === null

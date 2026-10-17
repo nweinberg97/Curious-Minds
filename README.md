@@ -14,6 +14,8 @@ A local-first arcade of quick brain games. Seven games in three families, playab
 | | **Capital Quest** | Name the capitals of ten countries |
 | Connections | **Word Web** | Find four hidden groups of four among sixteen words |
 
+The home page is an arcade machine: press its buttons to try a 20-second taster of any game before starting a full round. Every finished round earns tokens towards an arcade rank, and a "workshop" shows the games coming next.
+
 Every round ends with something to learn (definitions, flag stories, capital facts, why groups connect), and misses come back later through a light spaced-review queue. Every game is free and unlimited, with a relaxed or untimed mode.
 
 Product thinking, naming and design direction: [docs/PRODUCT.md](docs/PRODUCT.md).
@@ -135,4 +137,4 @@ No accounts, analytics, ads or trackers. No microphone, camera or location. Answ
 - Code and original content: Curious Minds.
 - Flags: [flag-icons](https://github.com/lipis/flag-icons) by Panayiotis Lipiridis, MIT licence.
 - Country data: [mledoze/countries](https://github.com/mledoze/countries), Open Database License 1.0.
-- Typefaces: Gloock and Schibsted Grotesk via Google Fonts, SIL Open Font License.
+- Typefaces: Lilita One and Rubik via Google Fonts, SIL Open Font License.

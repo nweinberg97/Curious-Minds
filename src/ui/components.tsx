@@ -151,12 +151,21 @@ export function Icon({ name, size = 20 }: { name: keyof typeof paths | string; s
 }
 
 /* ---------------- wordmark ---------------- */
+const MARK_STYLE = [
+  { c: '#fff4e0', r: '-6deg', y: '0px' },
+  { c: '#ff5fa8', r: '4deg', y: '-2px' },
+  { c: '#ffc93c', r: '-3deg', y: '1px' },
+  { c: '#45d4f5', r: '5deg', y: '-1px' },
+  { c: '#a8e063', r: '-4deg', y: '2px' },
+  { c: '#ff8a3d', r: '3deg', y: '-2px' },
+  { c: '#b98cff', r: '-5deg', y: '0px' },
+];
 export function Wordmark() {
   return (
     <a className="mark" href="#" aria-label="Curious Minds home" onClick={(e) => { e.preventDefault(); go(''); }}>
       <span className="mark-tiles" aria-hidden="true">
-        {'curious'.split('').map((c, i) => (
-          <span key={i}>{c}</span>
+        {'curious'.split('').map((ch, i) => (
+          <span key={i} style={{ ['--c' as string]: MARK_STYLE[i].c, ['--r' as string]: MARK_STYLE[i].r, ['--y' as string]: MARK_STYLE[i].y }}>{ch}</span>
         ))}
       </span>
       <span className="mark-word" aria-hidden="true">minds</span>

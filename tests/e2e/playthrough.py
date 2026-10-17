@@ -36,6 +36,36 @@ def summary(page, name):
     shot(page, f"{name}-summary")
 
 
+def tasters(page):
+    page.goto(BASE)
+    page.wait_for_selector(".cabinet")
+    buttons = page.locator(".abtn")
+    check(buttons.count() == 7, "home: seven arcade buttons")
+    for i in range(7):
+        buttons.nth(i).click()
+        page.wait_for_timeout(120)
+        check(page.locator(".screen .label").count() == 1, f"taster {i} renders")
+    # play the flag taster and the word web taster to a result
+    page.get_by_role("button", name="Try Flag Finder").click()
+    page.locator(".screen .choice").first.click()
+    page.wait_for_selector(".screen .win")
+    check(True, "flag taster reaches a result")
+    page.get_by_role("button", name="Try Word Rush").click()
+    start = page.locator(".screen .taster-chain .tile").first.inner_text().strip().lower()
+    used = {start}
+    cur = start
+    for _ in range(3):
+        nxt = next(w for w in KEY["assoc"].get(cur, []) if w not in used and " " not in w)
+        page.fill("#t-rush", nxt)
+        page.keyboard.press("Enter")
+        page.wait_for_timeout(150)
+        used.add(nxt)
+        cur = nxt
+    page.wait_for_selector(".screen .win")
+    check(True, "word rush taster: three links win")
+    shot(page, "home-taster")
+
+
 def word_rush(page):
     page.goto(BASE + "#play.word-rush")
     page.wait_for_selector("#wr-input")
@@ -90,7 +120,7 @@ def alphabet(page):
 def scramble(page):
     page.goto(BASE + "#word-scramble")
     page.get_by_role("button", name="Relaxed No clock").click()
-    page.get_by_role("button", name="Play", exact=True).click()
+    page.get_by_role("button", name="Start", exact=True).click()
     for i in range(8):
         page.wait_for_selector("#ws-input")
         label = page.locator(".scramble-tiles").get_attribute("aria-label")
@@ -151,7 +181,7 @@ def flags(page):
 def capitals(page):
     page.goto(BASE + "#capital-quest")
     page.get_by_role("button", name=re.compile("^Recall")).click()
-    page.get_by_role("button", name="Play", exact=True).click()
+    page.get_by_role("button", name="Start", exact=True).click()
     right = 0
     for i in range(10):
         page.wait_for_selector("#geo-input")
@@ -212,8 +242,8 @@ with sync_playwright() as p:
         SHOTS = f"{BASE_SHOTS}/{label}"
         os.makedirs(SHOTS, exist_ok=True)
         page.goto(BASE)
-        page.wait_for_selector(".spotlight")
-        for fn in [word_rush, alphabet, scramble, define, flags, capitals, web]:
+        page.wait_for_selector(".cabinet")
+        for fn in [tasters, word_rush, alphabet, scramble, define, flags, capitals, web]:
             try:
                 fn(page)
             except Exception as e:
@@ -224,8 +254,8 @@ with sync_playwright() as p:
         # persistence after reload
         page.goto(BASE)
         page.reload()
-        page.wait_for_selector(".numbers")
-        rounds = int(page.locator(".numbers .n").first.inner_text().replace(",", ""))
+        page.wait_for_selector(".board")
+        rounds = int(page.locator(".board h3 .tnum").inner_text().split()[0].replace(",", ""))
         check(rounds >= 7, f"{label}: rounds persist after reload ({rounds})")
         check(page.locator(".review-strip").count() == 1, f"{label}: review shelf appears")
         shot(page, "home-after")
@@ -250,16 +280,16 @@ with sync_playwright() as p:
         page.wait_for_timeout(200)
         page.goto(BASE)
         page.reload()
-        page.wait_for_selector(".numbers")
-        check(page.locator(".numbers .n").first.inner_text() == "0", f"{label}: clear removes data")
+        page.wait_for_selector(".board")
+        check(page.locator(".board h3 .tnum").inner_text().startswith("0 "), f"{label}: clear removes data")
         page.goto(BASE + "#settings")
         page.set_input_files("#import-file", path)
         page.get_by_role("button", name="Merge").click()
         page.wait_for_timeout(300)
         page.goto(BASE)
         page.reload()
-        page.wait_for_selector(".numbers")
-        check(int(page.locator(".numbers .n").first.inner_text()) == rounds, f"{label}: import restores rounds")
+        page.wait_for_selector(".board")
+        check(int(page.locator(".board h3 .tnum").inner_text().split()[0]) == rounds, f"{label}: import restores rounds")
         # malformed import
         page.goto(BASE + "#settings")
         bad = f"{SHOTS}/bad.json"
