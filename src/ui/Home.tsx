@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { CATEGORIES, COMING_SOON, GAMES, GAME_BY_ID } from '../games/registry';
 import type { GameDef } from '../engine/types';
 import { GameArt, GameIcon } from './art';
-import { Icon, fmt, go, useStore } from './components';
+import { Icon, fmt, useStore } from './components';
 import { Taster, TasterNav } from './Tasters';
+import { sfx } from '../engine/sound';
 import { totalTokens, rankFor } from '../engine/levels';
 import { dayKey, hashString, mulberry32, pick } from '../engine/random';
 
@@ -91,14 +92,36 @@ export function Home() {
     });
   };
 
+  // Surprise me: spin through the machine's buttons and land on a random game to try. It never leaves the page.
+  const [spinning, setSpinning] = useState<string | null>(null);
+  const spinTimer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  useEffect(() => () => clearInterval(spinTimer.current), []);
   const surprise = () => {
-    const pool = GAMES.filter((g) => g.id !== store.profile.recentGames[0]?.gameId);
-    go(`play.${pool[Math.floor(Math.random() * pool.length)].id}`);
+    if (spinning) return;
+    const others = GAMES.filter((g) => g.id !== machine);
+    const target = others[Math.floor(Math.random() * others.length)].id;
+    const reduced = document.documentElement.dataset.motion === 'reduced' ||
+      (document.documentElement.dataset.motion !== 'full' && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (reduced) return choose(target);
+    let step = 0;
+    const steps = 11 + Math.floor(Math.random() * 4);
+    spinTimer.current = setInterval(() => {
+      step++;
+      if (step >= steps) {
+        clearInterval(spinTimer.current);
+        setSpinning(null);
+        choose(target);
+        sfx.correct();
+        return;
+      }
+      setSpinning(GAMES[step % GAMES.length].id);
+      sfx.tick();
+    }, 70 + step * 6);
   };
 
   const ticker = [
     `Today's pick: ${spot.title}`,
-    'Taste all 7 games right here',
+    'Try all 7 games right here',
     ...COMING_SOON.map((c) => `Next in the workshop: ${c.title}`),
     'Free forever, no sign-up',
   ];
@@ -106,41 +129,16 @@ export function Home() {
   return (
     <main className="home-page" id="main">
       <div className="wrap">
-        <section className="hero" aria-label="Taste the games">
+        <section className="hero" aria-label="Try the games">
           <div className="hero-copy">
-            <span className="hero-eyebrow"><span className="coin" aria-hidden="true">c</span><b>7 games</b> to taste, no sign-up</span>
             <h1>
               <span className="w w1">An arcade</span>{' '}
               <span className="w w2">for your</span>{' '}
               <span className="w w3">brain.</span>
             </h1>
             <p className="hero-lede">
-              Quick word, world and puzzle games that leave you <b>a little smarter</b> every round. Taste every game on the machine, then jump into the one you like.
+              Quick word, world and puzzle games that leave you <b>a little smarter</b> every round. Free, no sign-up.
             </p>
-            <div className="taste-progress" aria-label={`${tasted.size} of ${GAMES.length} games tasted`}>
-              {GAMES.map((g) => (
-                <button
-                  key={g.id}
-                  className={`taste-dot ${tasted.has(g.id) ? 'done' : ''} ${g.id === machine ? 'now' : ''}`}
-                  style={{ ['--c' as string]: g.color }}
-                  onClick={() => choose(g.id)}
-                  aria-label={`${g.title}${tasted.has(g.id) ? ', tasted' : ''}`}
-                >
-                  {tasted.has(g.id) ? '✓' : ''}
-                </button>
-              ))}
-              <span className="taste-count">
-                {tasted.size === GAMES.length ? 'You tasted them all!' : `${tasted.size} of ${GAMES.length} tasted`}
-              </span>
-            </div>
-            <div className="hero-actions">
-              <a className="btn btn-primary btn-lg" href={`#play.${game.id}`} style={{ ['--accent' as string]: game.color }}>
-                Play {game.title}
-              </a>
-              <button className="btn btn-ghost" onClick={surprise}>
-                <Icon name="shuffle" size={18} /> Surprise me
-              </button>
-            </div>
           </div>
 
           <div className="cabinet" ref={cabinetRef} style={{ ['--game' as string]: game.color }}>
@@ -148,7 +146,10 @@ export function Home() {
               <button className="cab-nav" onClick={() => choose(prevGame.id)} aria-label={`Previous game: ${prevGame.title}`}>
                 <Icon name="back" size={18} />
               </button>
-              <span className="now">{game.title}</span>
+              <span className="now">
+                <small>Now trying</small>
+                {game.title}
+              </span>
               <button className="cab-nav" onClick={() => choose(nextGame.id)} aria-label={`Next game: ${nextGame.title}`}>
                 <span style={{ display: 'inline-flex', transform: 'scaleX(-1)' }}><Icon name="back" size={18} /></span>
               </button>
@@ -158,25 +159,37 @@ export function Home() {
                 <Taster key={`${machine}-${plays}`} id={machine} onWin={onWin} />
               </TasterNav.Provider>
             </div>
-            <div className="controls" role="group" aria-label="Choose a game to taste">
+
+            <div className="panel-label">
+              <span className="step-pill">Pick a game to try</span>
+              <span className="muted">
+                Press a button for a quick demo. {tasted.size > 0 && `${tasted.size} of ${GAMES.length} tried.`}
+              </span>
+            </div>
+            <div className="controls" role="group" aria-label="Pick a game to try">
               {GAMES.map((g) => (
                 <button
                   key={g.id}
-                  className="abtn"
-                  style={{ ['--c' as string]: g.color }}
-                  aria-pressed={g.id === machine}
-                  aria-label={`Taste ${g.title}${tasted.has(g.id) ? ' (tasted)' : ''}`}
+                  className={`abtn-wrap ${spinning === g.id ? 'spin' : ''}`}
+                  aria-pressed={!spinning && g.id === machine}
+                  aria-label={`Try ${g.title}${tasted.has(g.id) ? ' (tried)' : ''}`}
                   onClick={() => choose(g.id)}
+                  style={{ ['--c' as string]: g.color }}
                 >
-                  <GameIcon id={g.id} />
-                  {tasted.has(g.id) && <span className="tick" aria-hidden="true">✓</span>}
-                  <span className="tip" aria-hidden="true">{g.title}</span>
+                  <span className="abtn">
+                    <GameIcon id={g.id} />
+                    {tasted.has(g.id) && <span className="tick" aria-hidden="true">✓</span>}
+                  </span>
+                  <span className="abtn-name" aria-hidden="true">{g.title}</span>
                 </button>
               ))}
             </div>
             <div className="cabinet-foot">
-              <span className="muted">{game.tagline}</span>
-              <a className="btn btn-primary btn-sm" href={`#play.${game.id}`}>Play full game</a>
+              <button className="btn btn-ghost btn-sm" onClick={surprise} disabled={!!spinning}>
+                <Icon name="shuffle" size={16} /> {spinning ? 'Picking…' : 'Surprise me'}
+              </button>
+              <span className="spacer" />
+              <a className="btn btn-primary" href={`#play.${game.id}`}>Play full {game.title}</a>
             </div>
           </div>
         </section>

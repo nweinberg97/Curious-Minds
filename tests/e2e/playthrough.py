@@ -39,18 +39,18 @@ def summary(page, name):
 def tasters(page):
     page.goto(BASE)
     page.wait_for_selector(".cabinet")
-    buttons = page.locator(".abtn")
+    buttons = page.locator(".abtn-wrap")
     check(buttons.count() == 7, "home: seven arcade buttons")
     for i in range(7):
         buttons.nth(i).click()
         page.wait_for_timeout(120)
         check(page.locator(".screen .label").count() == 1, f"taster {i} renders")
     # play the flag taster and the word web taster to a result
-    page.get_by_role("button", name="Taste Flag Finder", exact=True).click()
+    page.get_by_role("button", name="Try Flag Finder", exact=True).click()
     page.locator(".screen .choice").first.click()
     page.wait_for_selector(".screen .win")
     check(True, "flag taster reaches a result")
-    page.get_by_role("button", name="Taste Word Rush", exact=True).click()
+    page.get_by_role("button", name="Try Word Rush", exact=True).click()
     start = page.locator(".screen .taster-chain .tile").first.inner_text().strip().lower()
     used = {start}
     cur = start
@@ -66,12 +66,16 @@ def tasters(page):
     shot(page, "home-taster")
     # next-game hop from a finished taster, and tasted progress
     page.locator(".screen .win").get_by_role("button", name=re.compile("^Next:")).click()
-    check(page.locator(".cabinet-top .now").inner_text().strip() == "Alphabet Sprint", "taster: next game hop")
-    check(page.locator(".taste-dot.done").count() >= 2, "taster: tasted progress recorded")
+    check("Alphabet Sprint" in page.locator(".cabinet-top .now").inner_text(), "taster: next game hop")
+    check(page.locator(".abtn .tick").count() >= 2, "taster: tried games are ticked")
+    before = page.locator(".cabinet-top .now").inner_text()
+    page.get_by_role("button", name="Surprise me").click()
+    page.wait_for_timeout(1600)
+    check(page.locator(".cabinet").count() == 1 and page.locator(".cabinet-top .now").inner_text() != before, "Surprise me picks a different game on the machine")
     # taste from a game card scrolls to the machine
     page.locator(".gcard", has_text="Capital Quest").get_by_role("button", name=re.compile("^Taste")).click()
     page.wait_for_timeout(600)
-    check(page.locator(".cabinet-top .now").inner_text().strip() == "Capital Quest", "card Taste loads the machine")
+    check("Capital Quest" in page.locator(".cabinet-top .now").inner_text(), "card Taste loads the machine")
     # in and out: open a game intro, switch games, leave with Esc, land back where we were
     page.mouse.wheel(0, 900)
     page.wait_for_timeout(400)
@@ -81,12 +85,11 @@ def tasters(page):
     y = page.evaluate("scrollY")
     play_link.click()
     page.wait_for_selector(".web-cell")
-    page.get_by_role("button", name="Pause").click()
-    page.get_by_role("button", name="Back to the arcade").click()
+    page.get_by_role("button", name="Exit to the arcade").click()
     page.wait_for_selector(".cabinet")
     page.wait_for_timeout(300)
     check(abs(page.evaluate("scrollY") - y) < 60, f"returning home restores scroll ({y})")
-    check(page.locator(".cabinet-top .now").inner_text().strip() == "Capital Quest", "returning home keeps the machine")
+    check("Capital Quest" in page.locator(".cabinet-top .now").inner_text(), "returning home keeps the machine")
     page.goto(BASE + "#flag-finder")
     page.get_by_role("button", name=re.compile("^Games")).click()
     page.get_by_role("menuitem", name="Word Scramble").click()

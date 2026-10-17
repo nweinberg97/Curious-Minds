@@ -145,9 +145,14 @@ export function GameScreen({ game, autostart, reviewFocus }: { game: GameDef; au
     <div className={`game cat-${game.category}`} style={{ ['--accent' as string]: game.color }}>
       <header className="topbar game-head">
         <div className="wrap">
-          <button className="iconbtn" onClick={() => (phase === 'play' ? setPaused(true) : go(''))} aria-label={phase === 'play' ? 'Pause' : 'Back to the arcade'}>
-            <Icon name={phase === 'play' ? 'pause' : 'back'} />
+          <button className="exit-btn" onClick={() => go('')} aria-label="Exit to the arcade">
+            <Icon name="back" size={18} /> <span>Arcade</span>
           </button>
+          {phase === 'play' && (
+            <button className="iconbtn pause-btn" onClick={() => setPaused(true)} aria-label="Pause">
+              <Icon name="pause" />
+            </button>
+          )}
           <h1 className="game-title">{game.title}</h1>
           {phase === 'play' && (
             <div className="scorebox" aria-live="off">
