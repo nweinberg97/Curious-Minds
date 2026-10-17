@@ -386,9 +386,12 @@ const otherTransport = [
 
 const transport = [...roadVehicles, ...railAirWater, ...otherTransport];
 
+const strip = (a: string) => a.replace(/^\*/, '').split('|');
+const extra = (list: string[], add: string[]) => [...list, ...add.filter((w) => !list.some((a) => strip(a).includes(strip(w)[0])))];
+
 export const HOME_CATEGORIES: AlphabetCategory[] = [
-  { id: 'foods', prompt: 'a food or dish', title: 'Food', answers: foods },
-  { id: 'household', prompt: 'a household object', title: 'Around the house', answers: household },
+  { id: 'foods', prompt: 'a food or dish', title: 'Food', answers: extra(foods, ['*bean', '*candy', 'sweet', 'snack', 'leftovers', 'stew', 'roast']) },
+  { id: 'household', prompt: 'a household object', title: 'Around the house', answers: extra(household, ['*bottle', '*drawer', '*closet', 'shelf', 'jar', 'tap|faucet', 'plug', 'socket', 'hanger', 'bookshelf']) },
   { id: 'clothing', prompt: 'something you wear', title: 'Things you wear', answers: clothing },
   { id: 'transport', prompt: 'a way to get around', title: 'Transport', answers: transport },
 ];

@@ -125,26 +125,30 @@ export function SprintTaster({ onWin }: TasterProps) {
   const [found, setFound] = useState<string[]>([]);
   const [input, setInput] = useState('');
   const [msg, setMsg] = useState('');
+  const [suggestion, setSuggestion] = useState<string | null>(null);
   const [flash, trigger] = useFlash<'bad'>();
   const { ref, win } = useWin(onWin);
   const done = found.length >= 3;
+
+  const add = (canonical: string, common: boolean) => {
+    const next = [...found, canonical];
+    setFound(next);
+    setInput('');
+    setSuggestion(null);
+    setMsg(common ? 'Nice!' : 'Deep cut! +50 bonus in the full game.');
+    sfx.correct();
+    if (next.length >= 3) setTimeout(win, 150);
+  };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || done) return;
     const v = judgeAnswer(input, letter, [animals], new Set(found.map((f) => `animals:${f}`)));
-    if (v.ok) {
-      const next = [...found, v.answer.canonical];
-      setFound(next);
-      setInput('');
-      setMsg(v.answer.common ? 'Nice!' : 'Deep cut! +50 bonus in the full game.');
-      sfx.correct();
-      if (next.length >= 3) setTimeout(win, 150);
-    } else {
-      setMsg(v.message);
-      trigger('bad');
-      sfx.wrong();
-    }
+    if (v.ok) return add(v.answer.canonical, v.answer.common);
+    setSuggestion(v.suggestion?.canonical ?? null);
+    setMsg(v.message);
+    trigger('bad');
+    sfx.wrong();
   };
 
   return (
@@ -159,12 +163,18 @@ export function SprintTaster({ onWin }: TasterProps) {
           <form onSubmit={submit} className={flash ? 'shake' : ''}>
             <label className="sr-only" htmlFor="t-sprint">An animal</label>
             <div className="answer-row">
-              <input id="t-sprint" className="answer" value={input} onChange={(e) => setInput(e.target.value)} placeholder={`An animal starting with ${letter.toUpperCase()}`} autoComplete="off" autoCapitalize="off" spellCheck={false} />
+              <input id="t-sprint" className="answer" value={input} onChange={(e) => { setInput(e.target.value); setSuggestion(null); }} placeholder={`An animal starting with ${letter.toUpperCase()}`} autoComplete="off" autoCapitalize="off" spellCheck={false} />
               <button className="btn btn-primary" type="submit" disabled={!input.trim()}>Add</button>
             </div>
           </form>
           <div className="pills">{found.map((f) => <span key={f} className="pill hit lift">{f}</span>)}</div>
-          <p className="hint" aria-live="polite">{msg || 'Spelling slips on long words are forgiven.'}</p>
+          <p className="hint" aria-live="polite">{msg || 'Any animal counts, from bird to baboon.'}</p>
+          {suggestion && (
+            <div className="row">
+              <button type="button" className="btn btn-tile btn-sm" onClick={() => add(suggestion, true)}>Yes, {suggestion}</button>
+              <button type="button" className="btn btn-ghost btn-sm" onClick={() => { setSuggestion(null); setInput(''); }}>No</button>
+            </div>
+          )}
         </>
       ) : (
         <Win title="Three for three!" again={() => { setFound([]); setMsg(''); setSeed((s) => s + 1); }}>

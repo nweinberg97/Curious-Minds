@@ -103,7 +103,7 @@ const northAmericaCities = [
   'oklahoma city', 'el paso', 'des moines', 'hartford', 'providence', 'savannah', 'charleston',
   'albany', 'annapolis', 'olympia', 'berkeley', 'oakland', 'yonkers', 'quincy', 'xenia',
   'ithaca', 'utica', 'urbana', 'knoxville', 'yuma', 'zanesville',
-  '*toronto', '*montreal', '*vancouver', '*ottawa', '*calgary', 'edmonton', 'winnipeg', '*quebec city',
+  '*toronto', '*montreal', '*vancouver', '*ottawa', '*calgary', 'edmonton', 'winnipeg', '*quebec city|quebec',
   'halifax', 'regina', 'saskatoon', 'hamilton', 'yellowknife', 'whitehorse', 'iqaluit',
   "st john's", 'charlottetown', 'fredericton', 'kingston', 'nuuk',
 ];
@@ -179,7 +179,7 @@ const officeJobs = [
 
 const serviceJobs = [
   '*teacher', '*police officer|policeman|policewoman', '*firefighter|fireman', '*chef', '*cook',
-  '*waiter|waitress', '*pilot', '*soldier', '*driver', '*postman|postwoman|mail carrier|postal worker',
+  '*waiter|waitress', '*pilot', '*soldier', '*driver', '*postman|postwoman|mail carrier|postal worker|mailman|mailwoman',
   '*cleaner', '*hairdresser', '*barber', 'barista', 'bartender|barman|barmaid', 'sommelier',
   '*butler', 'maid', 'housekeeper', '*nanny', 'au pair', 'babysitter', 'childminder', 'governess',
   '*tutor', '*lecturer', '*professor', 'headteacher|headmaster|headmistress|principal', 'dean',

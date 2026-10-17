@@ -337,8 +337,16 @@ const nature = [
   ...landforms, ...landformsMore, ...trees, ...flowersPlants, ...plantsMore, ...wildflowers, ...weatherAndSky, ...skyAndSeasons,
 ];
 
+// Everyday words people say first: animal groups and young animals.
+const everydayAnimals = [
+  '*bird', '*fish', '*bug', '*insect', 'mammal', 'reptile', 'amphibian', 'bull', '*bunny', 'boar', 'rooster', 'ape',
+  '*puppy', '*kitten', 'calf', 'lamb', 'ox', 'piglet', 'foal', 'chick', 'duckling', 'tadpole', 'cub', 'dinosaur',
+  'stallion', 'mare', 'pup', 'kitty', 'hound', 'gosling', 'cygnet', 'fawn', 'joey', 'larva',
+];
+const animalsAll = [...animals, ...everydayAnimals.filter((w) => !animals.some((a) => a.replace(/^\*/, '').split('|').includes(w.replace(/^\*/, ''))))];
+
 export const NATURE_CATEGORIES: AlphabetCategory[] = [
-  { id: 'animals', prompt: 'an animal', title: 'Animals', answers: animals },
+  { id: 'animals', prompt: 'an animal', title: 'Animals', answers: animalsAll },
   { id: 'fruitveg', prompt: 'a fruit or vegetable', title: 'Fruit & veg', answers: fruitveg },
   { id: 'nature', prompt: 'something in nature', title: 'Nature', answers: nature },
 ];

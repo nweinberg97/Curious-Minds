@@ -3,7 +3,7 @@ import { NATURE_CATEGORIES } from '../../content/alphabet/nature';
 import { HOME_CATEGORIES } from '../../content/alphabet/home';
 import { CULTURE_CATEGORIES } from '../../content/alphabet/culture';
 import { COUNTRIES } from '../../content/countries.generated';
-import { AnswerIndex, looseKey, normalize } from '../../engine/normalize';
+import { AnswerIndex, looseKey, normalize, typoAllowance } from '../../engine/normalize';
 import { shuffle } from '../../engine/random';
 
 /**
@@ -79,7 +79,7 @@ export function chooseRound(n: number, rand: () => number = Math.random, avoidLe
 
 export type SprintVerdict =
   | { ok: true; answer: Answer; fuzzy: boolean }
-  | { ok: false; message: string };
+  | { ok: false; message: string; suggestion?: Answer };
 
 export function judgeAnswer(input: string, letter: string, cats: CategoryIndex[], already: ReadonlySet<string>): SprintVerdict {
   const n = normalize(input);
@@ -91,6 +91,13 @@ export function judgeAnswer(input: string, letter: string, cats: CategoryIndex[]
       const key = `${c.cat.id}:${m.value.canonical}`;
       if (already.has(key)) return { ok: false, message: `You already have ${m.value.canonical}.` };
       return { ok: true, answer: m.value, fuzzy: m.fuzzy && looseKey(m.value.canonical) !== looseKey(n) };
+    }
+  }
+  // Close to a real answer? Offer it instead of a flat no ("board" → "boar").
+  for (const c of cats) {
+    const near = c.index.nearest(n, Math.max(1, typoAllowance(looseKey(n).length) + 1));
+    if (near && !already.has(`${c.cat.id}:${near.canonical}`)) {
+      return { ok: false, message: `${input.trim()} isn't on our lists. Did you mean ${near.canonical}?`, suggestion: near };
     }
   }
   return { ok: false, message: `${input.trim()} isn't on our lists for these categories.` };

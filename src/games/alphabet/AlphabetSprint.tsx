@@ -73,11 +73,11 @@ export default function AlphabetSprint({ config, paused, onFinish, onScore }: Pl
   };
   const clock = useCountdown(total, paused, finish);
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (paused || done.current || !input.trim()) return;
-    const v = judgeAnswer(input, board.letter, board.cats, already);
-    if (v.ok) {
+  const [suggestion, setSuggestion] = useState<Answer | null>(null);
+
+  const accept = (answer: Answer, fuzzy: boolean) => {
+    {
+      const v = { answer, fuzzy };
       const pts = pointsFor(v.answer);
       const ns = score + pts;
       setScore(ns);
@@ -88,15 +88,24 @@ export default function AlphabetSprint({ config, paused, onFinish, onScore }: Pl
       setFeedback({ text: msg, tone: 'good' });
       announce(`${v.answer.canonical} accepted. ${msg}`);
       setInput('');
+      setSuggestion(null);
       trigger('good');
       sfx.correct();
-    } else {
-      setMisses((m) => m + 1);
-      setFeedback({ text: v.message, tone: 'bad' });
-      announce(v.message);
-      trigger('bad');
-      sfx.wrong();
+      inputRef.current?.focus();
     }
+  };
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (paused || done.current || !input.trim()) return;
+    const v = judgeAnswer(input, board.letter, board.cats, already);
+    if (v.ok) return accept(v.answer, v.fuzzy);
+    setSuggestion(v.suggestion ?? null);
+    if (!v.suggestion) setMisses((m) => m + 1);
+    setFeedback({ text: v.message, tone: v.suggestion ? 'warn' : 'bad' });
+    announce(v.message);
+    trigger('bad');
+    sfx.wrong();
   };
 
   const newLetter = () => {
@@ -132,7 +141,10 @@ export default function AlphabetSprint({ config, paused, onFinish, onScore }: Pl
             ref={inputRef}
             className={`answer ${flash === 'good' ? 'is-good' : flash === 'bad' ? 'is-bad' : ''}`}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              setInput(e.target.value);
+              setSuggestion(null);
+            }}
             placeholder={`Something starting with ${board.letter.toUpperCase()}`}
             autoComplete="off"
             autoCapitalize="off"
@@ -146,6 +158,16 @@ export default function AlphabetSprint({ config, paused, onFinish, onScore }: Pl
         </div>
       </form>
       <p className={`feedback ${feedback.tone}`}>{feedback.text}</p>
+      {suggestion && (
+        <div className="row">
+          <button type="button" className="btn btn-tile btn-sm" onClick={() => accept(suggestion, true)}>
+            Yes, {suggestion.canonical}
+          </button>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={() => { setSuggestion(null); setInput(''); inputRef.current?.focus(); }}>
+            No, clear it
+          </button>
+        </div>
+      )}
       <div className="cats">
         {board.cats.map((c) => {
           const mine = board.found.filter((a) => a.categoryId === c.cat.id);

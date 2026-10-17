@@ -120,6 +120,14 @@ describe('Alphabet Sprint', () => {
     if (!first.ok) throw new Error('tiger should be valid');
     expect(judgeAnswer('tiger', 't', cats, new Set([`${first.answer.categoryId}:${first.answer.canonical}`])).ok).toBe(false);
   });
+  test('everyday answers count and near-misses get a suggestion, not a silent no', () => {
+    const animals = [indexes().get('animals')!];
+    expect(judgeAnswer('bird', 'b', animals, new Set()).ok).toBe(true);
+    expect(judgeAnswer('fish', 'f', animals, new Set()).ok).toBe(true);
+    const board = judgeAnswer('board', 'b', animals, new Set());
+    expect(board.ok).toBe(false);
+    if (!board.ok) expect(board.suggestion?.canonical).toBe('boar');
+  });
   test('made-up words are rejected', () => {
     expect(judgeAnswer('tzzzork', 't', cats, new Set()).ok).toBe(false);
   });

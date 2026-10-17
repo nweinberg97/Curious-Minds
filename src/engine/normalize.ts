@@ -152,4 +152,20 @@ export class AnswerIndex<T> {
     }
     return best ? { value: best.value, fuzzy: true } : null;
   }
+
+  /**
+   * The closest accepted answer within `maxDist` edits, for a "Did you mean…?" prompt.
+   * Never used to accept an answer by itself: the player confirms the suggestion.
+   */
+  nearest(input: string, maxDist = 1): T | null {
+    const k = looseKey(input);
+    if (k.length < 3) return null;
+    let best: { value: T; d: number } | null = null;
+    for (const [key, value] of this.entries) {
+      if (Math.abs(key.length - k.length) > maxDist || key[0] !== k[0]) continue;
+      const d = levenshtein(k, key, maxDist);
+      if (d <= maxDist && (!best || d < best.d)) best = { value, d };
+    }
+    return best?.value ?? null;
+  }
 }
